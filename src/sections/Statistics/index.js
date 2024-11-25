@@ -25,7 +25,7 @@ function Statistics() {
         <div className="second-row">
 
         <div className="statistic ">
-          <h1>3+</h1>
+          <h1>15+</h1>
           <p>Anos No Mercado</p>
         </div>
 
