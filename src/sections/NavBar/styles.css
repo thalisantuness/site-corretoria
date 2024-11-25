@@ -7,7 +7,7 @@
   background-color: var(--secondaryColor);
   margin-bottom: 10px;
 }
-
+ 
 .logo-img {
   height: 100px;
 }
@@ -33,33 +33,17 @@
 
 @media (width <= 425px) {
 .navbar{
-  background-color: blueviolet;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: auto;
+    margin-bottom: 10px;
+    height: 150px;
+  
 }
 
 
-  .popup-menu-content {
-    width: 80%;
-    max-width: 300px;
-  }
-
-
-  .links {
-    display: none;
-  }
-
-  .botao{
-    display:none;
-  }
-
-  .button-menu-hamburguer{
-    display: flex;
-    margin-top: -2px;
-    margin-right: 10px;
-    width: 20px;
-
-  }
-  .hamburguer-icon{
-   color: var(--color-primary);
-  }
+ 
 
 }
