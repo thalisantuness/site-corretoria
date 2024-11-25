@@ -4,28 +4,45 @@ import "./styles.css";
 function Statistics() {
   return (
     <div className="statistics-container">
-      <div className="statistics-left  backgroundStatistics">
+      
+      <div className="statistics-left">
+       
+       <div className="first-row">
+
         <div className="statistic">
           <h1>100%</h1>
           <p>Garantia de satisfação do cliente</p>
         </div>
-        <div className="statistic">
+
+
+        <div className="statistic"> 
           <h1>500+</h1>
           <p>Imóveis vendidos</p>
         </div>
-      </div>
-      <div className="statistics-right">
+
+        </div>
+
+        <div className="second-row">
+
         <div className="statistic ">
           <h1>3+</h1>
           <p>Anos No Mercado</p>
         </div>
+
         <div className="statistic">
           <h1>24+</h1>
           <p>Clientes Ativos</p>
         </div>
+
+        </div>
+
       </div>
 
-      <div className="textStatistics backgroundText">
+    
+      
+   
+
+      <div className="statistics-right">
         <h1>Esteja Com Quem Entende</h1>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam
