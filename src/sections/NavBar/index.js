@@ -3,7 +3,7 @@ import Logo from "../../assets/logo.png";
 import "./styles.css";
 
 export default function NavBar() {
-
+ 
 return (
 
 <header className="navbar">
