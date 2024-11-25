@@ -2,7 +2,7 @@ import React from "react";
 import "./styles.css";
 import bannerPrimaryImg from "../../assets/banner-primary.png";
 
-function Highlights() { 
+function Highlights() {  
   return (
     <div className="page-container">
       <div className="side-left">
