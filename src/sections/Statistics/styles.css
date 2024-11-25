@@ -1,0 +1,61 @@
+.statistics-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 150px;
+  margin-bottom: 150px;
+}
+
+.statistics-left {
+  background-color: white;
+  padding: 40px;
+}
+.statistics-right {
+  background-color: white;
+  padding: 40px;
+}
+
+.textStatistics {
+  padding: 40px;
+  width: 50%;
+}
+
+.backgroundStatistics,
+.backgroundText {
+  background-color: white;
+  color: black;
+}
+
+.statistic h1 {
+  font-size: 3em;
+  margin-bottom: 2px;
+  color: #333;
+}
+
+.statistic p {
+  font-size: 1em;
+  color: #666;
+}
+
+a {
+  color: blue;
+}
+
+@media (width <= 425px) {
+  .statistics-container {
+    align-items: center;
+    flex-direction: column;
+    background-color: brown;
+  }
+
+  .statistics-left,
+  .statistics-right,
+  .textStatistics {
+    width: 100%;
+    margin: 0;
+  }
+
+  .statistics-left,
+  .statistics-right {
+    padding: 20px;
+  }
+}
