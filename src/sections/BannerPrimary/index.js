@@ -8,7 +8,7 @@ function Highlights() {
       <div className="side-left">
       <h1>Encontre O Imóvel Dos Seus Sonhos</h1>
       <p>
-      Vamos abrir as portas para o futuro?</p>
+      Vamos abrir as portas para o futuro?</p> 
       <button>Entre em contato</button>
     </div>
 

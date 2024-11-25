@@ -8,7 +8,7 @@ import "./styles.css";
 
 function OurSolutions() {
   return (
-    <>
+    <> 
         <Roll left>
         <div className="second-section">   
           <div className="left-section">
