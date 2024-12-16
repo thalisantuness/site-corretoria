@@ -11,13 +11,14 @@ function OurSolutions() {
     <> 
         <Roll left>
         <div className="second-section">   
+         
           <div className="left-section">
-            <div className="left-section-content">
-            <h1>Confira</h1>
+            <h1>Confira</h1> 
             <p>Oferecemos uma ampla e diversificada variedade de apartamentos, casas e salas comerciais disponíveis para venda e aluguel em Recife e toda a região.</p>
-            </div>
             <img src={Couple} />
-          </div>
+           </div>
+          
+   
 
         <div className="right-section">
            

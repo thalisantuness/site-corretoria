@@ -1,14 +1,30 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import "./styles.css";
 import ReactSimplyCarousel from 'react-simply-carousel';
 import casa1 from "../../assets/casa-1.png"
 import casa2 from "../../assets/casa-2.png"
 import casa3 from "../../assets/casa-3.png"
 import { FaCar, FaBath, FaBed  } from "react-icons/fa";
+import axios from "axios";
 
 function Companies() {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const [imoveis, setImoveis] = useState([]);
  
+  const fetchImoveis = async () => {
+    try {
+      const response = await axios.get(
+        "https://api-corretora-production.up.railway.app/imovel"
+      );
+      setImoveis(response.data); 
+    } catch (error) {
+      console.error("Erro ao buscar imóveis:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchImoveis();
+  }, []);
 
   return (
     <div className="companies-container">
@@ -64,80 +80,31 @@ function Companies() {
         easing="linear"
       >
       
-        <div style={{ width: 400, height: 400}}>
-          <div className="item-slide">
-            <img src={casa1}/>
-            <h3>Casa em Santo Amaro - Recife - PE</h3>
-            
+       
+   
+      {imoveis.map((imovel) => (
+        <div className="item-slide" key={imovel.imovel_id}>
+        <img src={imovel.imageData}/>
+        <h3>{imovel.nome}</h3>
         <div className="item-info-line">
+        <div className="item-info-container">
+        <FaCar />
+        <div className="item-detail">{imovel.n_vagas} vaga</div>
+        </div> 
 
-            <div className="item-info-container">
-            <FaCar />
-            <div className="item-detail">1 vaga</div>
-            </div> 
-
-            <div className="item-info-container">
-            <FaBath />
-            <div className="item-detail">1 banheiro</div>
-            </div> 
-
-            <div className="item-info-container">
-            <FaBed  />
-            <div className="item-detail">2 quartos</div>
-            </div> 
-
-            </div>
-
-            </div>
+        <div className="item-info-container">
+        <FaBath />
+        <div className="item-detail">{imovel.n_banheiros} banheiro</div>
+        </div> 
+        <div className="item-info-container">
+        <FaBed  />
+        <div className="item-detail"> quartos</div>
+        </div> 
         </div>
-        <div style={{ width: 400, height: 400}}>
-        <div className="item-slide">
-        <img src={casa2}/>
-        <h3>Casa em Santo Amaro - Recife - PE</h3>
-        <div className="item-info-line">
-
-<div className="item-info-container">
-<FaCar />
-<div className="item-detail">1 vaga</div>
-</div> 
-
-<div className="item-info-container">
-<FaBath />
-<div className="item-detail">1 banheiro</div>
-</div> 
-
-<div className="item-info-container">
-<FaBed  />
-<div className="item-detail">2 quartos</div>
-</div> 
-
-</div>
-          </div> 
-        </div>
-        <div style={{ width: 400, height: 400 }}>
-        <div className="item-slide">
-        <img src={casa3}/>
-        <h3>Casa em Santo Amaro - Recife - PE</h3>
-        <div className="item-info-line">
-
-<div className="item-info-container">
-<FaCar />
-<div className="item-detail">1 vaga</div>
-</div> 
-
-<div className="item-info-container">
-<FaBath />
-<div className="item-detail">1 banheiro</div>
-</div> 
-
-<div className="item-info-container">
-<FaBed  />
-<div className="item-detail">2 quartos</div>
-</div> 
-
-</div>
-          </div> 
-        </div>
+        </div> 
+          ))}
+        
+    
     
      
       </ReactSimplyCarousel>

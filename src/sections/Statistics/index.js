@@ -1,10 +1,25 @@
 import React from "react";
 import "./styles.css";
+import Roll from "react-reveal/Roll";
 
 function Statistics() {
   return (
+    <>
+        <Roll right>
     <div className="statistics-container">
-      
+          <div className="statistics-right">
+        <h1>Esteja Com Quem Entende</h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam
+          animi voluptate esse eveniet velit veritatis fugit nobis excepturi
+          neque sit laboriosam fugiat corrupti iste iure, minus, quos laudantium
+          repudiandae officiis. Ullam nulla labore quisquam voluptatum porro
+        </p>
+        <a href="">Saiba Mais →</a>
+      </div>
+
+
+
       <div className="statistics-left">
        
        <div className="first-row">
@@ -42,17 +57,10 @@ function Statistics() {
       
    
 
-      <div className="statistics-right">
-        <h1>Esteja Com Quem Entende</h1>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam
-          animi voluptate esse eveniet velit veritatis fugit nobis excepturi
-          neque sit laboriosam fugiat corrupti iste iure, minus, quos laudantium
-          repudiandae officiis. Ullam nulla labore quisquam voluptatum porro
-        </p>
-        <a href="">Saiba Mais →</a>
-      </div>
+  
     </div>
+    </Roll>
+    </>
   );
 }
 

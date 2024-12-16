@@ -1,6 +1,5 @@
 import React from "react";
 import "./styles.css";
-import add from "../../assets/mais.png";
 
 function Blog() {
   return (
@@ -9,35 +8,17 @@ function Blog() {
         <div className="lineP"></div>
         <p>
         Apartamentos
-          <img
-            src={add}
-            alt="Add Button"
-            ref={(el) =>
-              el && el.scrollIntoView({ behavior: "smooth", block: "end" })
-            }
-          />
+    
         </p>
         <div className="lineP"></div>
         <p>
        Casas
-          <img
-            src={add}
-            alt="Add Button"
-            ref={(el) =>
-              el && el.scrollIntoView({ behavior: "smooth", block: "end" })
-            }
-          />
+         
         </p>
         <div className="lineP"></div>
         <p>
         Sala Comercial
-          <img
-            src={add}
-            alt="Add Button"
-            ref={(el) =>
-              el && el.scrollIntoView({ behavior: "smooth", block: "end" })
-            }
-          />
+        
         </p>
         <div className="lineP"></div>
       </div>

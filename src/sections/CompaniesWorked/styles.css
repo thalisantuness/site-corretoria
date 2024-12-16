@@ -4,11 +4,13 @@
   margin-top: 100px;
   margin-bottom: 10px;
   height: 450px;
+  padding-left: 50px;
 }
 
 .companies-container h1 {
   font-weight: 300;
-  margin-bottom: 30px;
+  text-align: start;
+  font-size: 55px;
 }
 
 .item-slide{
@@ -56,6 +58,7 @@ align-items: center;
 @media (width <= 425px) {
 
   .companies-container {
-background-color: aqua;
+
+height: auto;
   }
 }
