@@ -5,7 +5,7 @@ height: 600px;
 justify-content: space-evenly;
 align-items: center;
 background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-url("../../assets/initial-background.jpg");
+url("../../assets/none-background.jpg");
 background-repeat: no-repeat; 
 background-position: center;
 } 
