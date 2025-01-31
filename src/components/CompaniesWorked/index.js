@@ -98,7 +98,7 @@ function Companies() {
         </div> 
         <div className="item-info-container">
         <FaBed  />
-        <div className="item-detail"> quartos</div>
+        <div className="item-detail">{imovel.n_quartos} 2 quartos</div>
         </div> 
         </div>
         </div> 

@@ -1,0 +1,40 @@
+.list-container {
+  padding: 1rem;
+}
+
+.custom-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.list-item {
+  background: #f0f0f0;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+
+}
+
+.list-item img {
+  width: 200px;
+  height: 200px;
+  margin-right: 10px;
+}
+
+.container-details-list{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 0px 10px 0px 10px;
+
+}
+ 
+  
+  @media (width <= 425px) {
+   
+  }
+  
