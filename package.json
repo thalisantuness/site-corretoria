@@ -16,6 +16,7 @@
     "react-type-animation": "^3.2.0",
     "react-whatsapp-button": "^2.0.0",
     "rsuite": "^5.16.6",
+    "swiper": "^11.2.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
