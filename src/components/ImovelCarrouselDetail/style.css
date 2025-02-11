@@ -1,0 +1,55 @@
+.imovels-section {
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.carrousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  .carrousel-images img {
+    width: 100%;
+    height: auto;
+    display: none;
+  }
+  
+  .carrousel-images img.active {
+    display: block;
+  }
+  
+  .carrousel button {
+    position: absolute;
+    background-color: black;
+    border-radius: 100%;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    transition: 1s;
+  }
+
+  .carrousel button:hover {
+    background-color: gray;
+    cursor: pointer;
+    height: 60px;
+    width: 60px;
+    transition: 1s;
+  }
+  
+  .prev { left: -40px; }
+  .next { right: -40px; }
+  

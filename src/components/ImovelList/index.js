@@ -8,7 +8,7 @@ import "./styles.css";
 function ImovelList() {
   const [imoveis, setImoveis] = useState([]);
   const [notFound, setNotFound] = useState(false);
-  const { filtros, setImovelSelecionado } = useImovel();
+  const { filtros, setImovelId  } = useImovel();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -46,8 +46,8 @@ function ImovelList() {
     fetchImoveis();
   }, [filtros]);
 
-  const handleSelectImovel = (imovel) => {
-    setImovelSelecionado(imovel);
+  const handleSelectImovel = (id) => {
+    setImovelId(id);
     navigate("/detalhes-imovel");
   };
 
@@ -76,7 +76,7 @@ function ImovelList() {
                     <FaBed /> {imovel.n_quartos} quartos
                   </div>
                 </div>
-                <button onClick={() => handleSelectImovel(imovel)} className="details-button">
+                <button onClick={() => handleSelectImovel(imovel.imovel_id)} className="details-button">
                   Ver Detalhes
                 </button>
               </div>

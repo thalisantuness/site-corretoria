@@ -1,13 +1,15 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 const ImovelContext = createContext();
 
 export const ImovelProvider = ({ children }) => {
-  const [imovelSelecionado, setImovelSelecionado] = useState(null);
+  const [imovelId, setImovelId] = useState(null);
   const [filtros, setFiltros] = useState({});
 
+
+
   return (
-    <ImovelContext.Provider value={{ imovelSelecionado, setImovelSelecionado, filtros, setFiltros }}>
+    <ImovelContext.Provider value={{ imovelId, setImovelId, filtros, setFiltros }}>
       {children}
     </ImovelContext.Provider>
   );

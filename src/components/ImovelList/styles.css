@@ -32,6 +32,29 @@
   padding: 0px 10px 0px 10px;
 
 }
+
+.details-button { 
+  border-style: none;
+  background-color: black;
+  color: white;
+  height: 40px;
+  width: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  transition: 1s;
+  cursor: pointer;
+}
+
+.details-button:hover { 
+  background-color: grey;
+  color: white;
+  height: 50px;
+  width: 110px;
+  transition: 1s;
+  cursor: pointer;
+}
  
   
   @media (width <= 425px) {

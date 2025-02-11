@@ -1,69 +1,55 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useImovel } from "../../context/ImovelContext";
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
-import { FaCar, FaBath, FaBed } from "react-icons/fa";
+import ImovelCarrouselDetail from "../../components/ImovelCarrouselDetail";
+import ImovelTextDetails from "../../components/ImovelTextDetails";
+import axios from "axios";
 import "./style.css";
+import { IoIosArrowRoundBack } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
+
 
 function ImovelListDetails() {
-  const { imovelSelecionado } = useImovel();
-  const [index, setIndex] = useState(0);
+  const { imovelId } = useImovel();
+  const [imovel, setImovel] = useState(null);
+  const navigate = useNavigate();
 
-  // Funções para navegação no carrossel
-  const nextSlide = () => {
-    setIndex((prevIndex) => (prevIndex + 1) % imovelSelecionado.photo.length);
-  };
+  useEffect(() => {
+    const fetchImovel = async () => {
+      try {
+        if (imovelId) {
+          const response = await axios.get(`https://api-corretora-production.up.railway.app/imovel/${imovelId}`);
+          setImovel(response.data);
+        }
+      } catch (error) {
+        console.error("Erro ao buscar detalhes do imóvel:", error);
+      }
+    };
 
-  const prevSlide = () => {
-    setIndex((prevIndex) => (prevIndex - 1 + imovelSelecionado.photo.length) % imovelSelecionado.photo.length);
-  };
+    fetchImovel();
+  }, [imovelId]);
 
-  if (!imovelSelecionado) {
+  if (!imovelId) {
     return <p>Nenhum imóvel selecionado.</p>;
   }
+
+  if (!imovel) {
+    return <p>Carregando detalhes do imóvel...</p>;
+  }
+
+  const handleBack = () => {
+    navigate("/imovel-list");
+  };
 
   return (
     <div className="container">
       <NavBar />
       <div className="imovel-details">
-        <h1>{imovelSelecionado.nome}</h1>
-
-      
-        <div className="carrousel">
-          <button className="prev" onClick={prevSlide}>{"<"}</button>
-          
-          <div className="carrousel-images">
-            {imovelSelecionado.photo?.map((foto, i) => (
-              <img
-                key={foto.photo_id}
-                src={foto.imageData}
-                alt={`Foto ${foto.photo_id}`}
-                className={i === index ? "active" : "hidden"}
-              />
-            ))}
-          </div>
-          
-          <button className="next" onClick={nextSlide}>{">"}</button>
-        </div>
-
-        <p>{imovelSelecionado.description}</p>
-        <p>{imovelSelecionado.tipo.nome}</p>
-        <p>{imovelSelecionado.estado.nome}</p>
-
-        <div className="item-info-line">
-          <div className="item-info-container">
-            <FaCar />
-            <div className="item-detail">{imovelSelecionado.n_vagas} vaga</div>
-          </div>
-          <div className="item-info-container">
-            <FaBath />
-            <div className="item-detail">{imovelSelecionado.n_banheiros} banheiro</div>
-          </div>
-          <div className="item-info-container">
-            <FaBed />
-            <div className="item-detail">{imovelSelecionado.n_quartos} quartos</div>
-          </div>
-        </div>
+        <button onClick={() => handleBack()}><IoIosArrowRoundBack />  Voltar</button>
+        <h1>{imovel.nome}</h1>
+        <ImovelCarrouselDetail />
+        <ImovelTextDetails />
       </div>
       <Footer />
     </div>
