@@ -1,32 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import Logo from "../../assets/logo.png";
 import "./styles.css";
 
 export default function NavBar() {
- 
-return (
+  return (
+    <header className="navbar">
+      <Link to="/">
+        <img src={Logo} className="logo-img" alt="Logo" />
+      </Link>
 
-<header className="navbar">
-
-  <a href="/" target="_blank">
-  <img src={Logo} className="logo-img" alt="Logo" />
-  </a>
-   
-<div className="links">
-  <a href="">
-    Imóveis
-  </a>
-  
-  <a className="link" href="">
-   Contato
-  </a>
- 
-  <a className="link" href="">
-   Sobre nós
-  </a>
-
-</div>
-
-</header>
+      <div className="links">
+        <Link to="/imovel-list">Imóveis</Link>
+        <Link className="link" to="/contato">Contato</Link>
+        <Link className="link" to="/sobre-nos">Sobre nós</Link>
+      </div>
+    </header>
   );
 }

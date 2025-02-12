@@ -7,6 +7,7 @@ import "./global.css";
 import Home from "./pages/home";
 import ImovelListPage from "./pages/imovel-list";
 import ImovelListDetails from "./pages/imovel-details";
+import RegisterImovel from "./pages/register-imovel";
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/imovel-list" element={<ImovelListPage />} />
-            <Route path="/detalhes-imovel" element={<ImovelListDetails />} />  
+            <Route path="/detalhes-imovel" element={<ImovelListDetails />} /> 
+            <Route path="/cadastro-imovel" element={<RegisterImovel />} />   
           </Routes>
         </div>
       </Router>
