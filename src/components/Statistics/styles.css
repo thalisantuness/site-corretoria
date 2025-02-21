@@ -47,7 +47,8 @@
     flex-direction: column;
     justify-content: center;
     height: auto;
-    padding: 0px 0px 0px 0px
+    padding: 0px 0px 0px 0px;
+ 
   }
   
   .statistics-left {

@@ -18,10 +18,10 @@ function Home() {
       <NavBar />
       <BannerPrimary />
       <OurSolutions />
-         <Companies />
+   
       <Statistics />
     
-      {/* <Blog /> */}
+
       <Footer /> 
     </div>
   );

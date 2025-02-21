@@ -12,8 +12,8 @@ export default function NavBar() {
 
       <div className="links">
         <Link to="/imovel-list">Imóveis</Link>
-        <Link className="link" to="/contato">Contato</Link>
-        <Link className="link" to="/sobre-nos">Sobre nós</Link>
+        {/* <Link className="link" to="/contato">Contato</Link>
+        <Link className="link" to="/sobre-nos">Sobre nós</Link> */}
       </div>
     </header>
   );
