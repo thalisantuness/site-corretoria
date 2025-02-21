@@ -28,7 +28,7 @@
     position: absolute;
     background-color: black;
     border-radius: 100%;
-    color: white;
+    color: black;
     border: none;
     padding: 10px;
     cursor: pointer;
@@ -43,13 +43,29 @@
   }
 
   .carrousel button:hover {
-    background-color: gray;
+    background-color: black;
     cursor: pointer;
     height: 60px;
     width: 60px;
     transition: 1s;
   }
   
-  .prev { left: -40px; }
+  .prev { left: -60px; }
+  .next { right: -30px; }
+  
+
+  @media (width <= 425px) {
+  .carrousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    margin: auto;
+  }
+
+  .prev { left: -80px; }
   .next { right: -40px; }
   
+}

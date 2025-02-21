@@ -14,7 +14,7 @@ import "../../global.css";
 function Home() {
   return (
     <div className="container">
-      <ReactWhatsappButton countryCode="41" phoneNumber="96745640" />
+      <ReactWhatsappButton countryCode="81" phoneNumber="92200646" />
       <NavBar />
       <BannerPrimary />
       <OurSolutions />

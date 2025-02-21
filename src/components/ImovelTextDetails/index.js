@@ -32,6 +32,7 @@ function ImovelTextDetails() {
       <p>{imovel.tipo.nome}</p>
       <p>{imovel.cidade.nome}</p>
       <p>{imovel.estado.nome}</p>
+      <a className="link-chamada"href="https://wa.me/5581992200646?text=Ol%C3%A1%2C%20gostei%20de%20um%20im%C3%B3vel%20que%20vi%20no%20seu%20site!">Entrar em contato</a>
       </div>
 
       <div className="item-info-line">
@@ -39,6 +40,8 @@ function ImovelTextDetails() {
         <div className="item-info-container"><FaBath /> <div className="item-detail">{imovel.n_banheiros} banheiro</div></div>
         <div className="item-info-container"><FaBed /> <div className="item-detail">{imovel.n_quartos} quartos</div></div>
       </div>
+
+    
     </>
   );
 }
