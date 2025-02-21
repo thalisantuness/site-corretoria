@@ -5,6 +5,14 @@
 .custom-list {
   list-style-type: none;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-details-list h2{
+  font-weight: 400;
 }
 
 .list-item {
@@ -13,7 +21,10 @@
   padding: 10px;
   border-radius: 5px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 600px;
 
 }
 
@@ -58,6 +69,17 @@
  
   
   @media (width <= 425px) {
-   
+    .list-item {
+      background: #f0f0f0;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 300px;
+    
+    }
   }
   

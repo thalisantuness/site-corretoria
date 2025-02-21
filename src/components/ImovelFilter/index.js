@@ -3,6 +3,7 @@ import axios from "axios";
 import { useImovel } from "../../context/ImovelContext";
 import "./styles.css"
 
+
 function ImovelFilter() {
   const [cities, setCities] = useState([]);
   const [types, setTypes] = useState([]);
@@ -49,7 +50,8 @@ function ImovelFilter() {
 
   return (
     <div className="section-filters">
-      <h2>Filtros</h2>
+  
+
 
       <div className="select-container">
         <label htmlFor="city-select">Selecione uma cidade:</label>
@@ -75,20 +77,20 @@ function ImovelFilter() {
         </select>
       </div>
 
-      <div className="select-container">
+      <div className="input-container">
         <label>Quartos:</label>
         <input type="number" value={selectedRooms} onChange={(e) => setSelectedRooms(e.target.value)} />
-      </div>
+      
 
-      <div className="select-container">
+     
         <label>Vagas:</label>
         <input type="number" value={selectedParking} onChange={(e) => setSelectedParking(e.target.value)} />
-      </div>
+     
 
-      <div className="select-container">
+     
         <label>Banheiros:</label>
         <input type="number" value={selectedBathrooms} onChange={(e) => setSelectedBathrooms(e.target.value)} />
-      </div>
+        </div>
 
       <button onClick={handleFilter}>Buscar filtrado</button>
     </div>

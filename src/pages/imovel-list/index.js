@@ -13,15 +13,15 @@ import "../../global.css";
 
 function ImovelListPage() {
   return (
-    <div className="container">
+    <div className="imovels-container">
       <ReactWhatsappButton countryCode="41" phoneNumber="96745640" />
       <NavBar />
 
       <h1>Filtre o imóvel dos seus sonhos</h1>
-   <div className="imovels-section">
+  
    <ImovelFilter/>
    <ImovelList />
-   </div>
+  
     
       {/* <Blog /> */}
       <Footer /> 
