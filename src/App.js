@@ -8,6 +8,7 @@ import Home from "./pages/home";
 import ImovelListPage from "./pages/imovel-list";
 import ImovelListDetails from "./pages/imovel-details";
 import RegisterImovel from "./pages/register-imovel";
+import ImovelListAdminPage from "./pages/imovel-list-admin"
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/imovel-list" element={<ImovelListPage />} />
             <Route path="/detalhes-imovel" element={<ImovelListDetails />} /> 
-            <Route path="/cadastro-imovel" element={<RegisterImovel />} />   
+            <Route path="/cadastro-imovel-admin" element={<RegisterImovel />} />   
+            <Route path="/imovel-list-admin" element={<ImovelListAdminPage />} />   
           </Routes>
         </div>
       </Router>
