@@ -1,0 +1,33 @@
+.form-register {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px;
+  width: 100%;
+  height: auto;
+}
+
+.input-register {
+  margin-bottom: 10px;
+  border-style: solid;
+  border-radius: 5px;
+  width: 800px;
+  height: 25px;
+}
+
+.text-area-register {
+  margin-bottom: 10px;
+  border-style: solid;
+  border-radius: 5px;
+  width: 800px;
+  height: 55px;
+}
+
+.button-register{
+   background-color: black;
+   color: white
+  }
+
+@media (width <= 425px) {
+}
