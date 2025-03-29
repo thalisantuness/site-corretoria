@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useImovel } from "../../context/ImovelContext";
-import "./styles.css"
+import { FaCaretDown } from "react-icons/fa";
 
+import "./styles.css";
 
 function ImovelFilter() {
   const [cities, setCities] = useState([]);
@@ -18,7 +19,9 @@ function ImovelFilter() {
   useEffect(() => {
     const fetchCities = async () => {
       try {
-        const response = await axios.get("https://api-corretora-production.up.railway.app/cidades");
+        const response = await axios.get(
+          "https://api-corretora-production.up.railway.app/cidades"
+        );
         setCities(response.data);
       } catch (error) {
         console.error("Erro ao buscar cidades:", error);
@@ -27,7 +30,9 @@ function ImovelFilter() {
 
     const fetchTypes = async () => {
       try {
-        const response = await axios.get("https://api-corretora-production.up.railway.app/tipos");
+        const response = await axios.get(
+          "https://api-corretora-production.up.railway.app/tipos"
+        );
         setTypes(response.data);
       } catch (error) {
         console.error("Erro ao buscar tipos de imóvel:", error);
@@ -50,12 +55,13 @@ function ImovelFilter() {
 
   return (
     <div className="section-filters">
-  
-
-
       <div className="select-container">
-        <label htmlFor="city-select">Selecione uma cidade:</label>
-        <select id="city-select" value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)} className="custom-select">
+        <select
+          id="city-select"
+          value={selectedCity}
+          onChange={(e) => setSelectedCity(e.target.value)}
+          className="custom-select"
+        >
           <option value="">-- Escolha uma cidade --</option>
           {cities.map((city) => (
             <option key={city.cidade_id} value={city.cidade_id}>
@@ -66,8 +72,12 @@ function ImovelFilter() {
       </div>
 
       <div className="select-container">
-        <label htmlFor="type-select">Selecione um tipo de imóvel:</label>
-        <select id="type-select" value={selectedType} onChange={(e) => setSelectedType(e.target.value)} className="custom-select">
+        <select
+          id="type-select"
+          value={selectedType}
+          onChange={(e) => setSelectedType(e.target.value)}
+          className="custom-select"
+        >
           <option value="">-- Escolha um tipo --</option>
           {types.map((type) => (
             <option key={type.tipo_id} value={type.tipo_id}>
@@ -78,19 +88,30 @@ function ImovelFilter() {
       </div>
 
       <div className="input-container">
-        <label>Quartos:</label>
-        <input type="number" value={selectedRooms} onChange={(e) => setSelectedRooms(e.target.value)} />
-      
+        <input
+          id="number-rooms"
+          placeholder="Quartos"
+          type="number"
+          value={selectedRooms}
+          onChange={(e) => setSelectedRooms(e.target.value)}
+        />
 
-     
-        <label>Vagas:</label>
-        <input type="number" value={selectedParking} onChange={(e) => setSelectedParking(e.target.value)} />
-     
+        <input
+          id="cars"
+          placeholder="Vagas"
+          type="number"
+          value={selectedParking}
+          onChange={(e) => setSelectedParking(e.target.value)}
+        />
 
-     
-        <label>Banheiros:</label>
-        <input type="number" value={selectedBathrooms} onChange={(e) => setSelectedBathrooms(e.target.value)} />
-        </div>
+        <input
+          for="bathdroom"
+          placeholder="Banheiros"
+          type="number"
+          value={selectedBathrooms}
+          onChange={(e) => setSelectedBathrooms(e.target.value)}
+        />
+      </div>
 
       <button onClick={handleFilter}>Buscar filtrado</button>
     </div>
