@@ -9,7 +9,6 @@ import "./style.css";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
-
 function ImovelListDetails() {
   const { imovelId } = useImovel();
   const [imovel, setImovel] = useState(null);
@@ -19,7 +18,9 @@ function ImovelListDetails() {
     const fetchImovel = async () => {
       try {
         if (imovelId) {
-          const response = await axios.get(`https://api-corretora-production.up.railway.app/imovel/${imovelId}`);
+          const response = await axios.get(
+            `https://api-corretora-production.up.railway.app/imovel/${imovelId}`
+          );
           setImovel(response.data);
         }
       } catch (error) {
@@ -46,7 +47,9 @@ function ImovelListDetails() {
     <div className="container">
       <NavBar />
       <div className="imovel-details">
-        <button onClick={() => handleBack()}><IoIosArrowRoundBack />  Voltar</button>
+        <button onClick={() => handleBack()}>
+          <IoIosArrowRoundBack /> Voltar
+        </button>
         <h1>{imovel.nome}</h1>
         <ImovelCarrouselDetail />
         <ImovelTextDetails />

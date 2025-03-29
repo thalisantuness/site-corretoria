@@ -27,19 +27,30 @@ function ImovelCarrouselDetail() {
 
   return (
     <div className="carrousel">
-      <button className="prev" onClick={() => setIndex((prev) => (prev - 1 + imovel.photo.length) % imovel.photo.length)}>
-        {"<"}
-      </button>
+    <button
+  className="prev"
+  onClick={() => setIndex((prev) => (prev - 1 + imovel.photos.length) % imovel.photos.length)}
+>
+  {"<"}
+</button>
 
-      <div className="carrousel-images">
-        {imovel.photo?.map((foto, i) => (
-          <img key={foto.photo_id} src={foto.imageData} alt={`Foto ${foto.photo_id}`} className={i === index ? "active" : "hidden"} />
-        ))}
-      </div>
+<div className="carrousel-images">
+  {imovel.photos?.map((foto, i) => (
+    <img
+      key={foto.photo_id}
+      src={foto.imageData}
+      alt={`Foto ${foto.photo_id}`}
+      className={i === index ? "active" : "hidden"}
+    />
+  ))}
+</div>
 
-      <button className="next" onClick={() => setIndex((prev) => (prev + 1) % imovel.photo.length)}>
-        {">"}
-      </button>
+<button
+  className="next"
+  onClick={() => setIndex((prev) => (prev + 1) % imovel.photos.length)}
+>
+  {">"}
+</button>
     </div>
   );
 }

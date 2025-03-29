@@ -69,3 +69,12 @@
   .next { right: -40px; }
   
 }
+
+
+@media (width <= 320px) {
+   
+  
+
+    .next { right: -10px; }
+    
+  }
