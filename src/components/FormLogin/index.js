@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./styles.css";
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function FormLogin() {
   const [formData, setFormData] = useState({
@@ -22,22 +23,46 @@ export default function FormLogin() {
         "https://api-corretora-production.up.railway.app/usuarios/login",
         formData,
         { headers: { "Content-Type": "application/json" } }
-      );
+      ); 
       
       const token = response.data.token;
       if (token) {
+          toast.success("Login realizado com sucesso!", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+              });
         localStorage.setItem("token", token); 
         window.location.href = "/imovel-list-admin"; 
       }
     } catch (error) {
       console.error("Erro ao fazer login:", error);
-      alert("Erro ao fazer login! Verifique suas credenciais.");
+        
+      
+      const errorMessage = error.response?.data?.message || "Erro desconhecido ao logar!";
+
+      toast.error(`Erro ao logar: ${errorMessage}`, {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
     }
     setLoading(false);
   };
 
   return (
     <div>
+         <ToastContainer />
       <h2 className="subtitle-login">Olá, faça seu login</h2>
       <form className="form-login" onSubmit={handleSubmit}>
         <input

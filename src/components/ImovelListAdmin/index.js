@@ -3,6 +3,7 @@ import { FaCar, FaBath, FaBed, FaTrash } from "react-icons/fa";
 import axios from "axios";
 import { useImovel } from "../../context/ImovelContext";
 import "./styles.css";
+import { ToastContainer, toast } from 'react-toastify';
 
 function ImovelListAdmin() {
   const [imoveis, setImoveis] = useState([]);
@@ -30,13 +31,34 @@ function ImovelListAdmin() {
     try {
       await axios.delete(`https://api-corretora-production.up.railway.app/imovel/${id}`);
       setImoveis(imoveis.filter(imovel => imovel.imovel_id !== id));
+      toast.success("Imóvel excluído com sucesso!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     } catch (error) {
       console.error("Erro ao excluir imóvel:", error);
+      toast.error("Erro ao excluir imóvel. Tente novamente!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   };
 
   return (
     <div className="list-container-admin">
+           <ToastContainer />
       {notFound ? (
         <h3>Pesquisa não encontrada</h3>
       ) : (

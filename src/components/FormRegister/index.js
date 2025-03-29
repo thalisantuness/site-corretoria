@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef  } from "react";
 import axios from "axios";
 import "./styles.css";
+import { ToastContainer, toast } from 'react-toastify';
 
 function FormRegister() {
   const [formData, setFormData] = useState({
@@ -11,7 +12,7 @@ function FormRegister() {
     n_quartos: "",
     n_banheiros: "",
     n_vagas: "",
-    tipo_id: "",
+    tipo_id: "", 
     estado_id: "",
     cidade_id: "",
     imagemBase64: "",
@@ -20,7 +21,8 @@ function FormRegister() {
   const [loading, setLoading] = useState(false);
   const [imovelId, setImovelId] = useState(null);
   const [additionalImage, setAdditionalImage] = useState("");
-  const [addingImages, setAddingImages] = useState(false); // Controla o estado de adicionar imagens
+  const [addingImages, setAddingImages] = useState(false); 
+  const morePhotosRef = useRef(null); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -58,12 +60,34 @@ function FormRegister() {
 
       const id = response.data.imovel.imovel_id;
       setImovelId(id);
-      alert("Imóvel cadastrado com sucesso!");
+       toast.success("Imóvel cadastrado com sucesso!", {
+                      position: "top-right",
+                      autoClose: 3000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "colored",
+                    });
+     
       await sendImage(id, formData.imagemBase64);
-      setAddingImages(true); // Habilita o estado de adicionar imagens
+      setAddingImages(true); 
     } catch (error) {
       console.error("Erro ao cadastrar imóvel:", error);
-      alert("Erro ao cadastrar imóvel!");
+     
+      const errorMessage = error.response?.data?.message || "Erro desconhecido ao criar imóvel!";
+     
+           toast.error(`Erro ao criar imóvel: ${errorMessage}`, {
+                   position: "top-right",
+                   autoClose: 3000,
+                   hideProgressBar: false,
+                   closeOnClick: true,
+                   pauseOnHover: true,
+                   draggable: true,
+                   progress: undefined,
+                   theme: "colored",
+                 });
     }
     setLoading(false);
   };
@@ -76,22 +100,84 @@ function FormRegister() {
         { imovel_id: id, imagemBase64: image },
         { headers: { "Content-Type": "application/json" } }
       );
-      alert("Imagem adicionada com sucesso!");
 
-      const addMore = window.confirm("Deseja adicionar mais uma imagem?");
-      if (!addMore) {
-        setAddingImages(false); // Se não quiser mais imagens, habilita o formulário
-        setImovelId(null);
-      }
+      toast.success("Imagem adicionada com sucesso!", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+      });
+
+      
+      toast.info(
+        <div>
+          Deseja adicionar mais uma imagem?
+          <div style={{ marginTop: 10, display: "flex", gap: "10px" }}>
+          <button
+              onClick={() => {
+                setAddingImages(true);
+                setTimeout(() => {
+                  morePhotosRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }, 100); 
+              }}
+              style={{
+                backgroundColor: "#4CAF50",
+                color: "white",
+                border: "none",
+                padding: "5px 10px",
+                cursor: "pointer",
+              }}
+            >
+              Sim
+            </button>
+            <button
+              onClick={() => {
+                setAddingImages(false);
+                setImovelId(null);
+                toast.dismiss();
+              }}
+              style={{
+                backgroundColor: "#f44336",
+                color: "white",
+                border: "none",
+                padding: "5px 10px",
+                cursor: "pointer",
+              }}
+            >
+              Não
+            </button>
+          </div>
+        </div>,
+        {
+          position: "top-right",
+          autoClose: false,
+          closeOnClick: false,
+          draggable: false,
+          hideProgressBar: true,
+        }
+      );
     } catch (error) {
       console.error("Erro ao enviar imagem:", error);
-      alert("Erro ao enviar imagem!");
+      toast.error("Erro ao enviar imagem!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+      });
     }
     setLoading(false);
   };
 
+
   return (
     <div>
+          <ToastContainer />
       <h2>Cadastrar Imóvel</h2>
       <form className="form-register" onSubmit={handleSubmit}>
         <input
@@ -181,7 +267,7 @@ function FormRegister() {
       </form>
 
       {imovelId && addingImages && (
-        <div>
+        <div ref={morePhotosRef}>
           <h3>Adicionar mais uma foto</h3>
           <input
             type="file"
