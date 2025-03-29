@@ -27,7 +27,6 @@ export default function FormLogin() {
       const token = response.data.token;
       if (token) {
         localStorage.setItem("token", token); 
-        alert("Login realizado com sucesso!");
         window.location.href = "/imovel-list-admin"; 
       }
     } catch (error) {
@@ -39,7 +38,7 @@ export default function FormLogin() {
 
   return (
     <div>
-      <h2>Olá, faça seu login</h2>
+      <h2 className="subtitle-login">Olá, faça seu login</h2>
       <form className="form-login" onSubmit={handleSubmit}>
         <input
           className="input-login"

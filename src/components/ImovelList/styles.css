@@ -45,26 +45,17 @@
 }
 
 .details-button { 
-  border-style: none;
-  background-color: black;
-  color: white;
-  height: 40px;
-  width: 100px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  transition: 1s;
-  cursor: pointer;
+    height: 40px;
+    width: 100px;
 }
 
 .details-button:hover { 
-  background-color: grey;
-  color: white;
-  height: 50px;
-  width: 110px;
-  transition: 1s;
-  cursor: pointer;
+    height: 50px;
+    width: 110px;
+}
+
+.details-list-localization {
+    font-weight: bold;
 }
  
   

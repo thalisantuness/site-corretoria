@@ -36,7 +36,7 @@ function ImovelListAdmin() {
   };
 
   return (
-    <div className="list-container">
+    <div className="list-container-admin">
       {notFound ? (
         <h3>Pesquisa não encontrada</h3>
       ) : (

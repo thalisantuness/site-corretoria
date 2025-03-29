@@ -64,13 +64,14 @@ function ImovelList() {
                 <h2>{imovel.nome}</h2>
                 <p>{imovel.description}</p>
                 <p>{imovel.tipo.nome}</p>
-                <p>{imovel.estado.nome}</p>
+                <p className="details-list-localization">{imovel.cidade.nome}</p>
+                <p className="details-list-localization">{imovel.estado.nome}</p>
                 <div className="item-info-line">
                   <div className="item-info-container">
-                    <FaCar /> {imovel.n_vagas} vaga
+                    <FaCar /> {imovel.n_vagas} vagas
                   </div>
                   <div className="item-info-container">
-                    <FaBath /> {imovel.n_banheiros} banheiro
+                    <FaBath /> {imovel.n_banheiros} banheiros
                   </div>
                   <div className="item-info-container">
                     <FaBed /> {imovel.n_quartos} quartos

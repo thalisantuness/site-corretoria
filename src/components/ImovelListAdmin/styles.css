@@ -15,6 +15,10 @@
   font-weight: 400;
 }
 
+.list-container-admin {
+    background-color: #212631;
+}
+
 .list-item {
   background: #f0f0f0;
   margin: 5px 0;

@@ -14,7 +14,9 @@
   scroll-behavior: smooth;
 }
 
-input, select {
+input,
+select,
+textarea {
   padding: 5px;
   color: rgb(150, 150, 150);
   border: 0;
@@ -50,6 +52,29 @@ h3 {
 p {
   color: var(--color-paragraph);
   font-size: 15px;
+}
+
+button {
+  border-style: none;
+  background-color: black;
+  color: white;
+  height: 40px;
+  width: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  transition: 1s;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: grey;
+  color: white;
+  transition: 1s;
+  cursor: pointer;
+  height: 50px;
+  width: 110px;
 }
 
 .container {
