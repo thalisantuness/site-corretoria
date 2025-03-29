@@ -8,7 +8,7 @@ import "./styles.css";
 function ImovelList() {
   const [imoveis, setImoveis] = useState([]);
   const [notFound, setNotFound] = useState(false);
-  const { filtros, setImovelId  } = useImovel();
+  const { filtros, setImovelId } = useImovel();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,7 +21,8 @@ function ImovelList() {
         if (filtros.tipo_id) params.append("tipo_id", filtros.tipo_id);
         if (filtros.n_quartos) params.append("n_quartos", filtros.n_quartos);
         if (filtros.n_vagas) params.append("n_vagas", filtros.n_vagas);
-        if (filtros.n_banheiros) params.append("n_banheiros", filtros.n_banheiros);
+        if (filtros.n_banheiros)
+          params.append("n_banheiros", filtros.n_banheiros);
 
         if (params.toString()) {
           url += `?${params.toString()}`;
@@ -64,8 +65,18 @@ function ImovelList() {
                 <h2>{imovel.nome}</h2>
                 <p>{imovel.description}</p>
                 <p>{imovel.tipo.nome}</p>
-                <p className="details-list-localization">{imovel.cidade.nome}</p>
-                <p className="details-list-localization">{imovel.estado.nome}</p>
+
+                <p className="details-list-value">Valor: {imovel.valor}</p>
+                <p className="details-list-condominio">
+                  Condomínio: {imovel.valor_condominio}
+                </p>
+
+                <p className="details-list-localization">
+                  {imovel.cidade.nome}
+                </p>
+                <p className="details-list-localization">
+                  {imovel.estado.nome}
+                </p>
                 <div className="item-info-line">
                   <div className="item-info-container">
                     <FaCar /> {imovel.n_vagas} vagas
@@ -77,7 +88,10 @@ function ImovelList() {
                     <FaBed /> {imovel.n_quartos} quartos
                   </div>
                 </div>
-                <button onClick={() => handleSelectImovel(imovel.imovel_id)} className="details-button">
+                <button
+                  onClick={() => handleSelectImovel(imovel.imovel_id)}
+                  className="details-button"
+                >
                   Ver Detalhes
                 </button>
               </div>

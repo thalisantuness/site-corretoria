@@ -23,6 +23,14 @@
   align-items: center;
 }
 
+.item-value{
+    font-size:40px;
+}
+
+.item-condominio {
+    font-size: 25px;
+}
+
 .link-chamada {
   font-style: none;
   color: black;
