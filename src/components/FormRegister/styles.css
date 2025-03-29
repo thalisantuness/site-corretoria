@@ -1,3 +1,12 @@
+.register-container {
+  background-color: #212631;
+}
+
+.register-container h2 {
+  color: white;
+  font-weight: 500;
+}
+
 .form-register {
   display: flex;
   flex-direction: column;
@@ -11,7 +20,7 @@
 .input-register {
   margin-bottom: 10px;
   border-style: solid;
-  border-radius: 5px;
+  background-color: #212631;
   width: 800px;
   height: 25px;
 }
@@ -19,15 +28,47 @@
 .text-area-register {
   margin-bottom: 10px;
   border-style: solid;
-  border-radius: 5px;
+  background-color: #212631;
   width: 800px;
   height: 55px;
 }
 
-.button-register{
-   background-color: black;
-   color: white
-  }
+.button-register {
+  background-color: black;
+  color: white;
+}
+
+.container-add-more {
+  height: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-add-more button {
+  padding-top: 10px;
+}
+
+.container-add-more h3 {
+  color: white;
+}
 
 @media (width <= 425px) {
+  .input-register {
+    background-color: #212631;
+    width: 250px;
+    height: 25px;
+  }
+
+  .text-area-register {
+    background-color: #212631;
+    width: 250px;
+    height: 55px;
+  }
+
+  .register-container h2 {
+    font-size: 20px;
+  }
 }
