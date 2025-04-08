@@ -47,9 +47,9 @@ function FormRegister() {
         n_quartos: parseInt(formData.n_quartos) || 0,
         n_banheiros: parseInt(formData.n_banheiros) || 0,
         n_vagas: parseInt(formData.n_vagas) || 0,
-        tipo_id: parseInt(formData.tipo_id) || 1,
-        estado_id: parseInt(formData.estado_id) || 1,
-        cidade_id: parseInt(formData.cidade_id) || 1,
+        tipo_id: parseInt(formData.tipo_id) || 2,
+        estado_id: parseInt(formData.estado_id) || 2,
+        cidade_id: parseInt(formData.cidade_id) || 2,
       };
 
       const response = await axios.post(

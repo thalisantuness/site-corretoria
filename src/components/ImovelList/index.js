@@ -57,47 +57,47 @@ function ImovelList() {
       {notFound ? (
         <h3>Pesquisa não encontrada</h3>
       ) : (
-        <ul className="custom-list">
+        <div className="imoveis-grid">
           {imoveis.map((imovel) => (
-            <li key={imovel.imovel_id} className="list-item">
-              <img src={imovel.imageData} alt={imovel.nome} />
-              <div className="container-details-list">
+            <div
+              key={imovel.imovel_id}
+              className="imovel-card"
+              onClick={() => handleSelectImovel(imovel.imovel_id)}
+            >
+              <img
+                src={imovel.imageData}
+                alt={imovel.nome}
+                className="imovel-image"
+              />
+              <div className="imovel-details">
                 <h2>{imovel.nome}</h2>
-                <p>{imovel.description}</p>
-                <p>{imovel.tipo.nome}</p>
+                <p className="imovel-description">{imovel.description}</p>
+                <p className="imovel-type">{imovel.tipo.nome}</p>
 
-                <p className="details-list-value">Valor: {imovel.valor}</p>
-                <p className="details-list-condominio">
+                <p className="imovel-price">Valor: {imovel.valor}</p>
+                <p className="imovel-condominio">
                   Condomínio: {imovel.valor_condominio}
                 </p>
 
-                <p className="details-list-localization">
-                  {imovel.cidade.nome}
+                <p className="imovel-location">
+                  {imovel.cidade.nome}, {imovel.estado.nome}
                 </p>
-                <p className="details-list-localization">
-                  {imovel.estado.nome}
-                </p>
-                <div className="item-info-line">
-                  <div className="item-info-container">
-                    <FaCar /> {imovel.n_vagas} vagas
+
+                <div className="imovel-features">
+                  <div className="feature">
+                    <FaCar /> {imovel.n_vagas}
                   </div>
-                  <div className="item-info-container">
-                    <FaBath /> {imovel.n_banheiros} banheiros
+                  <div className="feature">
+                    <FaBath /> {imovel.n_banheiros}
                   </div>
-                  <div className="item-info-container">
-                    <FaBed /> {imovel.n_quartos} quartos
+                  <div className="feature">
+                    <FaBed /> {imovel.n_quartos}
                   </div>
                 </div>
-                <button
-                  onClick={() => handleSelectImovel(imovel.imovel_id)}
-                  className="details-button"
-                >
-                  Ver Detalhes
-                </button>
               </div>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
