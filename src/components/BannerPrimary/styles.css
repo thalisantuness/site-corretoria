@@ -94,6 +94,28 @@ background-position: center;
         width: 250px;
     }
 
+    @media (max-width: 430px) {
+  .page-container {
+    height: 400px; 
+  }
+
+  .page-container h1 {
+    font-size: 30px; 
+  }
+
+  .page-container p {
+    font-size: 16px;
+  }
+
+  .page-container button {
+    width: 180px;
+  }
+
+  .page-container button:hover {
+    width: 200px;
+  }
+}
+
 }
 
 

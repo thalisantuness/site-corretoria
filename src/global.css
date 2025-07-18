@@ -34,8 +34,8 @@ a {
 
 h1 {
   color: var(--color-title);
-  font-size: 40px;
-  font-weight: regular;
+  font-size: clamp(30px, 5vw, 40px); 
+  font-weight: normal;
 }
 
 h2 {
@@ -51,7 +51,7 @@ h3 {
 
 p {
   color: var(--color-paragraph);
-  font-size: 15px;
+  font-size: clamp(12px, 2vw, 15px);
 }
 
 button {

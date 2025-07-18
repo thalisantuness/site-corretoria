@@ -1,18 +1,18 @@
 .footer {
   width: 100%;
-  height: 352px;
   background-color: #f2f2f2;
   padding: 30px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-height: 352px; 
 }
 
 .footer-left {
-  display: grid;
-  margin-left: 140px;
-  align-items: center;
+  display: flex;
   flex-direction: column;
+  align-items: center;
+  margin-left: 140px;
 }
 
 .footer-logo {
@@ -24,11 +24,7 @@
 .social-icons img {
   width: 27px;
   height: 27px;
-  flex-direction: row;
-  align-items: center;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  margin-right: 38px;
+  margin: 10px 15px;
 }
 
 .social-icons a {
@@ -96,9 +92,7 @@
 }
 
 .footerEnd {
-  display: flex;
   width: 100%;
-  height: 119px;
   background-color: #1a1a1a;
   color: white;
   text-align: center;
@@ -106,6 +100,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-height: 119px; 
 }
 
 .footerEnd p {
@@ -126,58 +121,73 @@
   color: #3461ff;
 }
 
-@media (width <= 425px) {
+@media (max-width: 430px) {
   .footer {
     flex-direction: column;
-    height: auto;
-    padding: 20px;
+    padding: 10px;
+    min-height: auto;
   }
+
   .footer-left {
     margin-left: 0;
     margin-bottom: 20px;
-    text-align: center;
   }
 
-  .contact-button {
-    width: auto;
-    height: auto;
-    flex-direction: column;
-    background-color: #3461ff;
-    color: white;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-  }
-
-  .social-icons {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
-  }
   .social-icons img {
     margin: 0 10px;
   }
+
   .footer-center,
   .footer-right {
     justify-content: center;
     margin-left: 0;
   }
+
   .footer-right a {
     margin-right: 20px;
   }
+
   .footer-links li {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
+
   .footerEnd {
-    flex-direction: row;
-    height: auto;
-    padding: 20px;
+    flex-direction: column;
+    padding: 10px;
+    min-height: auto;
   }
+
   .footerEnd p {
     margin-left: 0;
     margin-bottom: 10px;
+    font-size: 14px;
   }
+
   .footerEnd-links a {
     margin-right: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .footer-left {
+    margin-left: 0;
+    margin-bottom: 20px;
+  }
+
+  .footer-right a {
+    margin-right: 40px;
+  }
+
+  .footerEnd p {
+    margin-left: 0;
+  }
+
+  .footerEnd-links a {
+    margin-right: 40px;
   }
 }
