@@ -28,7 +28,7 @@ function Statistics() {
 
 
         <div className="statistic"> 
-          <h1>500+</h1>
+          <h1>60+</h1>
           <p>Imóveis vendidos</p>
         </div>
 

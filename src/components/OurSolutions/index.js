@@ -28,14 +28,14 @@ function OurSolutions() {
             </div>    
 
             <div className="right-section-values">
-            <img  src={Regua} alt="Check Icon" />
+            <img  src={Xadrez} alt="Check Icon" />
             <h2>Casas</h2>
             </div>      
 
             
             <div className="right-section-values">
-            <img src={Xadrez} alt="Check Icon" />
-            <h2> Salas Comerciais </h2>
+            <img src={Regua} alt="Check Icon" />
+            <h2> Imóveis Comerciais </h2>
             </div>   
 
              
