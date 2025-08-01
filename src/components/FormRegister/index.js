@@ -58,13 +58,6 @@ function FormRegister() {
     fetchData();
   }, []);
 
-  // Carrega fotos quando o imóvel é cadastrado
-  useEffect(() => {
-    if (imovelId) {
-      fetchPhotos();
-    }
-  }, [imovelId]);
-
   // Filtra cidades baseado no estado selecionado
   const filteredCidades = cidades.filter(
     (cidade) => cidade.estado_id === parseInt(formData.estado_id)
@@ -98,8 +91,10 @@ function FormRegister() {
     }
   };
 
-  // Funções de API
+  // Função para buscar fotos do imóvel
   const fetchPhotos = async () => {
+    if (!imovelId) return;
+    
     try {
       const response = await axios.get(
         `https://api-corretora-production.up.railway.app/imovel/${imovelId}`
@@ -107,16 +102,15 @@ function FormRegister() {
       setPhotos(response.data.photos || []);
     } catch (error) {
       console.error('Erro ao buscar fotos:', error);
-      toast.error('Erro ao carregar fotos do imóvel!', {
-        position: 'top-right',
-        autoClose: 3000,
-        theme: 'colored',
-      });
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Se já tem imovelId, não faz nada (não permite atualizar/criar novo)
+    if (imovelId) return;
+    
     setLoading(true);
     
     try {
@@ -143,7 +137,11 @@ function FormRegister() {
       setImovelId(id);
       
       // Envia a imagem principal
-      await sendImage(id, formData.imagemBase64);
+      if (formData.imagemBase64) {
+        await sendImage(id, formData.imagemBase64);
+        // Busca as fotos após cadastrar
+        await fetchPhotos();
+      }
       
       toast.success('Imóvel cadastrado com sucesso!', {
         position: 'top-right',
@@ -182,7 +180,6 @@ function FormRegister() {
         { imovel_id: id, imagemBase64: image },
         { headers: { 'Content-Type': 'application/json' } }
       );
-      await fetchPhotos();
     } catch (error) {
       console.error('Erro ao enviar imagem:', error);
       throw error;
@@ -199,6 +196,7 @@ function FormRegister() {
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }
+      await fetchPhotos(); // Atualiza a lista de fotos após adicionar
       toast.success('Foto adicionada com sucesso!', {
         position: 'top-right',
         autoClose: 2000,
@@ -215,12 +213,23 @@ function FormRegister() {
   };
 
   const removePhoto = async (photoId) => {
+    // Impede a remoção da primeira imagem (imagem principal)
+    if (photos.length > 0 && photos[0].photo_id === photoId) {
+      toast.error('Não é possível remover a imagem principal!', {
+        position: 'top-right',
+        autoClose: 3000,
+        theme: 'colored',
+      });
+      return;
+    }
+
     setDeletingPhoto(photoId);
     try {
       await axios.delete(
-        `https://api-corretora-production.up.railway.app/photo/${photoId}`
+        `https://api-corretora-production.up.railway.app/photo/${photoId}`,
+        { data: { imovel_id: imovelId } }
       );
-      setPhotos(photos.filter(photo => photo.photo_id !== photoId));
+      await fetchPhotos(); // Atualiza a lista de fotos após remover
       toast.success('Foto removida com sucesso!', {
         position: 'top-right',
         autoClose: 2000,
@@ -241,274 +250,288 @@ function FormRegister() {
   return (
     <div className="property-form-container">
       <ToastContainer />
-      <h2>{imovelId ? 'Editar Imóvel' : 'Cadastrar Imóvel'}</h2>
+      <h2>{imovelId ? 'Adicionar Fotos ao Imóvel' : 'Cadastrar Imóvel'}</h2>
       
-      <form className="form-register" onSubmit={handleSubmit}>
-        {/* Seção de informações básicas */}
-        <div className="form-section">
-          <h3>Informações Básicas</h3>
-          <div className="form-grid">
-            <div className="form-group">
-              <label>Nome do Imóvel</label>
-              <input
-                type="text"
-                name="nome"
-                placeholder="Ex: Apartamento Centro"
-                value={formData.nome}
-                onChange={handleChange}
-                required
-                disabled={loading}
-              />
-            </div>
-            
-            <div className="form-group">
-              <label>Descrição</label>
-              <textarea
-                name="description"
-                placeholder="Descreva o imóvel..."
-                value={formData.description}
-                onChange={handleChange}
-                required
-                disabled={loading}
-              />
-            </div>
-          </div>
-        </div>
-        
-        {/* Seção de valores */}
-        <div className="form-section">
-          <h3>Valores</h3>
-          <div className="form-grid">
-            <div className="form-group">
-              <label>Valor {formData.tipo_transacao === 'Aluguel' ? 'do Aluguel' : 'de Venda'}</label>
-              <input
-                type="number"
-                name="valor"
-                placeholder="R$ 0,00"
-                value={formData.valor}
-                onChange={handleChange}
-                required
-                disabled={loading}
-              />
-            </div>
-            
-            <div className="form-group">
-              <label>Valor do Condomínio</label>
-              <input
-                type="number"
-                name="valor_condominio"
-                placeholder="R$ 0,00"
-                value={formData.valor_condominio}
-                onChange={handleChange}
-                required
-                disabled={loading}
-              />
-            </div>
-            
-            <div className="form-group">
-              <label>Valor do IPTU</label>
-              <input
-                type="number"
-                name="valor_iptu"
-                placeholder="R$ 0,00"
-                value={formData.valor_iptu}
-                onChange={handleChange}
-                required
-                disabled={loading}
-              />
-            </div>
-            
-            <div className="form-group">
-              <label>Tipo de Transação</label>
-              <select
-                name="tipo_transacao"
-                value={formData.tipo_transacao}
-                onChange={handleChange}
-                required
-                disabled={loading}
-              >
-                <option value="Aluguel">Aluguel</option>
-                <option value="Venda">Venda</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        
-        {/* Seção de características */}
-        <div className="form-section">
-          <h3>Características</h3>
-          <div className="form-grid">
-            <div className="form-group">
-              <label>Quartos</label>
-              <input
-                type="number"
-                name="n_quartos"
-                placeholder="0"
-                value={formData.n_quartos}
-                onChange={handleChange}
-                required
-                disabled={loading}
-              />
-            </div>
-            
-            <div className="form-group">
-              <label>Banheiros</label>
-              <input
-                type="number"
-                name="n_banheiros"
-                placeholder="0"
-                value={formData.n_banheiros}
-                onChange={handleChange}
-                required
-                disabled={loading}
-              />
-            </div>
-            
-            <div className="form-group">
-              <label>Vagas</label>
-              <input
-                type="number"
-                name="n_vagas"
-                placeholder="0"
-                value={formData.n_vagas}
-                onChange={handleChange}
-                required
-                disabled={loading}
-              />
-            </div>
-          </div>
-        </div>
-        
-        {/* Seção de localização */}
-        <div className="form-section">
-          <h3>Localização</h3>
-          <div className="form-grid">
-            <div className="form-group">
-              <label>Tipo de Imóvel</label>
-              <select
-                name="tipo_id"
-                value={formData.tipo_id}
-                onChange={handleChange}
-                required
-                disabled={loading}
-              >
-                <option value="">Selecione...</option>
-                {tipos.map((tipo) => (
-                  <option key={tipo.tipo_id} value={tipo.tipo_id}>
-                    {tipo.nome}
-                  </option>
-                ))}
-              </select>
-            </div>
-            
-            <div className="form-group">
-              <label>Estado</label>
-              <select
-                name="estado_id"
-                value={formData.estado_id}
-                onChange={handleChange}
-                required
-                disabled={loading}
-              >
-                <option value="">Selecione...</option>
-                {estados.map((estado) => (
-                  <option key={estado.estado_id} value={estado.estado_id}>
-                    {estado.nome}
-                  </option>
-                ))}
-              </select>
-            </div>
-            
-            <div className="form-group">
-              <label>Cidade</label>
-              <select
-                name="cidade_id"
-                value={formData.cidade_id}
-                onChange={handleChange}
-                required
-                disabled={loading || !formData.estado_id}
-              >
-                <option value="">Selecione...</option>
-                {filteredCidades.map((cidade) => (
-                  <option key={cidade.cidade_id} value={cidade.cidade_id}>
-                    {cidade.nome}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </div>
-        
-        {/* Seção de imagem principal */}
-        <div className="form-section">
-          <h3>Imagem Principal</h3>
-          <div className="form-group">
-            <label className="file-upload-label">
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageUpload}
-                required={!imovelId}
-                disabled={loading}
-              />
-              <span className="file-upload-button">
-                {formData.imagemBase64 ? 'Alterar Imagem' : 'Selecionar Imagem'}
-              </span>
-              {formData.imagemBase64 && (
-                <span className="file-upload-status">
-                  <FaCheck className="success-icon" /> Imagem selecionada
-                </span>
-              )}
-            </label>
-            {formData.imagemBase64 && (
-              <div className="image-preview">
-                <img src={formData.imagemBase64} alt="Preview" />
+      {!imovelId ? (
+        <form className="form-register" onSubmit={handleSubmit}>
+          {/* Seção de informações básicas */}
+          <div className="form-section">
+            <h3>Informações Básicas</h3>
+            <div className="form-grid">
+              <div className="form-group">
+                <label>Nome do Imóvel</label>
+                <input
+                  type="text"
+                  name="nome"
+                  placeholder="Ex: Apartamento Centro"
+                  value={formData.nome}
+                  onChange={handleChange}
+                  required
+                  disabled={loading}
+                />
               </div>
-            )}
+              
+              <div className="form-group">
+                <label>Descrição</label>
+                <textarea
+                  name="description"
+                  placeholder="Descreva o imóvel..."
+                  value={formData.description}
+                  onChange={handleChange}
+                  required
+                  disabled={loading}
+                />
+              </div>
+            </div>
           </div>
-        </div>
-        
-        {/* Botão de submit */}
-        <div className="form-actions">
-          <button
-            type="submit"
-            className="submit-button"
-            disabled={loading}
-          >
-            {loading ? (
-              <>
-                <FaSpinner className="spinner" /> Salvando...
-              </>
-            ) : imovelId ? (
-              'Atualizar Imóvel'
-            ) : (
-              'Cadastrar Imóvel'
-            )}
-          </button>
-        </div>
-      </form>
-      
-      {/* Seção de fotos adicionais (após cadastro) */}
-      {imovelId && (
+          
+          {/* Seção de valores */}
+          <div className="form-section">
+            <h3>Valores</h3>
+            <div className="form-grid">
+              <div className="form-group">
+                <label>Valor {formData.tipo_transacao === 'Aluguel' ? 'do Aluguel' : 'de Venda'}</label>
+                <input
+                  type="number"
+                  name="valor"
+                  placeholder="R$ 0,00"
+                  value={formData.valor}
+                  onChange={handleChange}
+                  required
+                  disabled={loading}
+                />
+              </div>
+              
+              <div className="form-group">
+                <label>Valor do Condomínio</label>
+                <input
+                  type="number"
+                  name="valor_condominio"
+                  placeholder="R$ 0,00"
+                  value={formData.valor_condominio}
+                  onChange={handleChange}
+                  required
+                  disabled={loading}
+                />
+              </div>
+              
+              <div className="form-group">
+                <label>Valor do IPTU</label>
+                <input
+                  type="number"
+                  name="valor_iptu"
+                  placeholder="R$ 0,00"
+                  value={formData.valor_iptu}
+                  onChange={handleChange}
+                  required
+                  disabled={loading}
+                />
+              </div>
+              
+              <div className="form-group">
+                <label>Tipo de Transação</label>
+                <select
+                  name="tipo_transacao"
+                  value={formData.tipo_transacao}
+                  onChange={handleChange}
+                  required
+                  disabled={loading}
+                >
+                  <option value="Aluguel">Aluguel</option>
+                  <option value="Venda">Venda</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          
+          {/* Seção de características */}
+          <div className="form-section">
+            <h3>Características</h3>
+            <div className="form-grid">
+              <div className="form-group">
+                <label>Quartos</label>
+                <input
+                  type="number"
+                  name="n_quartos"
+                  placeholder="0"
+                  value={formData.n_quartos}
+                  onChange={handleChange}
+                  required
+                  disabled={loading}
+                />
+              </div>
+              
+              <div className="form-group">
+                <label>Banheiros</label>
+                <input
+                  type="number"
+                  name="n_banheiros"
+                  placeholder="0"
+                  value={formData.n_banheiros}
+                  onChange={handleChange}
+                  required
+                  disabled={loading}
+                />
+              </div>
+              
+              <div className="form-group">
+                <label>Vagas</label>
+                <input
+                  type="number"
+                  name="n_vagas"
+                  placeholder="0"
+                  value={formData.n_vagas}
+                  onChange={handleChange}
+                  required
+                  disabled={loading}
+                />
+              </div>
+            </div>
+          </div>
+          
+          {/* Seção de localização */}
+          <div className="form-section">
+            <h3>Localização</h3>
+            <div className="form-grid">
+              <div className="form-group">
+                <label>Tipo de Imóvel</label>
+                <select
+                  name="tipo_id"
+                  value={formData.tipo_id}
+                  onChange={handleChange}
+                  required
+                  disabled={loading}
+                >
+                  <option value="">Selecione...</option>
+                  {tipos.map((tipo) => (
+                    <option key={tipo.tipo_id} value={tipo.tipo_id}>
+                      {tipo.nome}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              
+              <div className="form-group">
+                <label>Estado</label>
+                <select
+                  name="estado_id"
+                  value={formData.estado_id}
+                  onChange={handleChange}
+                  required
+                  disabled={loading}
+                >
+                  <option value="">Selecione...</option>
+                  {estados.map((estado) => (
+                    <option key={estado.estado_id} value={estado.estado_id}>
+                      {estado.nome}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              
+              <div className="form-group">
+                <label>Cidade</label>
+                <select
+                  name="cidade_id"
+                  value={formData.cidade_id}
+                  onChange={handleChange}
+                  required
+                  disabled={loading || !formData.estado_id}
+                >
+                  <option value="">Selecione...</option>
+                  {filteredCidades.map((cidade) => (
+                    <option key={cidade.cidade_id} value={cidade.cidade_id}>
+                      {cidade.nome}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
+          
+          {/* Seção de imagem principal */}
+          <div className="form-section">
+            <h3>Imagem Principal</h3>
+            <div className="form-group">
+              <label className="file-upload-label">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  required
+                  disabled={loading}
+                />
+                <span className="file-upload-button">
+                  {formData.imagemBase64 ? 'Alterar Imagem' : 'Selecionar Imagem'}
+                </span>
+                {formData.imagemBase64 && (
+                  <span className="file-upload-status">
+                    <FaCheck className="success-icon" /> Imagem selecionada
+                  </span>
+                )}
+              </label>
+              {formData.imagemBase64 && (
+                <div className="image-preview">
+                  <img src={formData.imagemBase64} alt="Preview" />
+                </div>
+              )}
+            </div>
+          </div>
+          
+          {/* Botão de submit */}
+          <div className="form-actions">
+            <button
+              type="submit"
+              className="submit-button"
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <FaSpinner className="spinner" /> Salvando...
+                </>
+              ) : (
+                'Cadastrar Imóvel'
+              )}
+            </button>
+          </div>
+        </form>
+      ) : (
         <div className="photos-section">
+          <div className="success-message">
+            <FaCheck className="success-icon" />
+            <h3>Imóvel cadastrado com sucesso! ID: {imovelId}</h3>
+            <p>Agora você pode adicionar mais fotos ao imóvel.</p>
+          </div>
+          
           <h3>Fotos do Imóvel</h3>
           
           {photos.length > 0 ? (
             <div className="photos-grid">
-              {photos.map((photo) => (
+              {photos.map((photo, index) => (
                 <div key={photo.photo_id} className="photo-item">
                   <img src={photo.imageData} alt={`Imóvel ${photo.photo_id}`} />
-                  <button
-                    onClick={() => removePhoto(photo.photo_id)}
-                    disabled={deletingPhoto === photo.photo_id}
-                    className="delete-photo"
-                  >
-                    {deletingPhoto === photo.photo_id ? (
-                      <FaSpinner className="spinner" />
-                    ) : (
-                      <FaTrash />
-                    )}
-                  </button>
+                  {index === 0 ? (
+                    <button
+                      className="delete-photo disabled"
+                      disabled
+                      title="Imagem principal não pode ser removida"
+                    >
+                      <FaTimes />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => removePhoto(photo.photo_id)}
+                      disabled={deletingPhoto === photo.photo_id}
+                      className="delete-photo"
+                      title="Remover foto"
+                    >
+                      {deletingPhoto === photo.photo_id ? (
+                        <FaSpinner className="spinner" />
+                      ) : (
+                        <FaTrash />
+                      )}
+                    </button>
+                  )}
                 </div>
               ))}
             </div>

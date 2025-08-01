@@ -176,7 +176,29 @@
 .photos-section {
   margin-top: 3rem;
   padding-top: 2rem;
-  border-top: 1px solid #e2e8f0;
+}
+
+.success-message {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: #f0fff4;
+  border-radius: 8px;
+  border-left: 4px solid #38a169;
+}
+
+.success-message h3 {
+  color: #2d3748;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.success-message p {
+  color: #4a5568;
 }
 
 .photos-section h3 {
@@ -239,6 +261,11 @@
 
 .delete-photo:disabled {
   background-color: #a0aec0;
+  cursor: not-allowed;
+}
+
+.delete-photo.disabled {
+  background-color: #718096;
   cursor: not-allowed;
 }
 
