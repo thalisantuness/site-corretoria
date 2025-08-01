@@ -11,6 +11,7 @@ import RegisterImovel from "./pages/register-imovel-admin";
 import ImovelListAdminPage from "./pages/imovel-list-admin";
 import LoginAdmin from "./pages/login-admin";
 import ProtectRoute from "./components/ProtectRoute";
+import EditImovel from "./pages/edit-imovel-admin";
 
 function App() {
   return (
@@ -22,6 +23,10 @@ function App() {
             <Route path="/imovel-list" element={<ImovelListPage />} />
             <Route path="/detalhes-imovel" element={<ImovelListDetails />} />
             <Route path="/login-admin" element={<LoginAdmin />} />
+            <Route
+              path="/editar-imovel/:id"
+              element={<ProtectRoute element={<EditImovel />} />}
+            />
 
             <Route
               path="/cadastro-imovel-admin"

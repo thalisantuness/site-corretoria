@@ -1,0 +1,331 @@
+/* Estilos gerais */
+.property-form-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.property-form-container h2 {
+  color: #2d3748;
+  font-size: 1.75rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: #4a5568;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Seções do formulário */
+.form-section {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.form-section h3 {
+  color: #2d3748;
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Grupos de formulário */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  color: #4a5568;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  background-color: #f8fafc;
+  color: #4a5568;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.2);
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Upload de arquivos */
+.file-upload-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.file-upload-label input[type="file"] {
+  display: none;
+}
+
+.file-upload-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background-color: #3182ce;
+  color: white;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.file-upload-button:hover {
+  background-color: #2b6cb0;
+}
+
+.file-upload-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #38a169;
+}
+
+.success-icon {
+  color: #38a169;
+}
+
+/* Preview de imagens */
+.image-preview {
+  margin-top: 1rem;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  max-width: 300px;
+}
+
+.image-preview img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Botões */
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.submit-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #3182ce;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.submit-button:hover {
+  background-color: #2b6cb0;
+}
+
+.submit-button:disabled {
+  background-color: #a0aec0;
+  cursor: not-allowed;
+}
+
+/* Seção de fotos */
+.photos-section {
+  margin-top: 3rem;
+  padding-top: 2rem;
+}
+
+.photos-section h3 {
+  color: #2d3748;
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.no-photos {
+  text-align: center;
+  color: #718096;
+  padding: 1rem;
+  background-color: #f8fafc;
+  border-radius: 6px;
+}
+
+.photos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.photo-item {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  aspect-ratio: 4/3;
+}
+
+.photo-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.delete-photo {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 30px;
+  height: 30px;
+  background-color: rgba(229, 62, 62, 0.9);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.delete-photo:hover {
+  background-color: #c53030;
+  transform: scale(1.1);
+}
+
+.delete-photo:disabled {
+  background-color: #a0aec0;
+  cursor: not-allowed;
+}
+
+.delete-photo.disabled {
+  background-color: #718096;
+  cursor: not-allowed;
+}
+
+/* Formulário de adicionar foto */
+.add-photo-container {
+  background-color: #f8fafc;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.add-photo-container h4 {
+  color: #2d3748;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.add-photo-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.add-photo-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background-color: #38a169;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  align-self: flex-start;
+}
+
+.add-photo-button:hover {
+  background-color: #2f855a;
+}
+
+.add-photo-button:disabled {
+  background-color: #a0aec0;
+  cursor: not-allowed;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .property-form-container {
+    padding: 1.5rem;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .photos-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .property-form-container {
+    padding: 1rem;
+  }
+  
+  .property-form-container h2 {
+    font-size: 1.5rem;
+  }
+  
+  .form-section h3 {
+    font-size: 1.1rem;
+  }
+}
