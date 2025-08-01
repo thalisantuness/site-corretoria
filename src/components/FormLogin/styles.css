@@ -1,24 +1,132 @@
-.form-login {
+/* styles.css */
+.login-container {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 50px;
+  min-height: 100vh;
+  background-color: #f5f7fa;
+  padding: 20px;
+}
+
+.login-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  padding: 40px;
   width: 100%;
-  height: auto;
-  background-color: #212631;
+  max-width: 450px;
+  transition: all 0.3s ease;
 }
 
-.subtitle-login {
-    background-color: #212631;
-    color: white;
-    font-weight: 400; 
+.login-title {
+  color: #2d3748;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-align: center;
 }
 
-.input-login {
-margin-bottom: 10px
+.login-subtitle {
+  color: #718096;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 32px;
 }
 
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
-@media (width <= 425px) {
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-label {
+  color: #4a5568;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.login-input {
+  padding: 12px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  background-color: #f8fafc;
+}
+
+.login-input:focus {
+  outline: none;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.2);
+}
+
+.login-input::placeholder {
+  color: #a0aec0;
+}
+
+.login-button {
+  background-color: #3182ce;
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+}
+
+.login-button:hover {
+  background-color: #2c5282;
+}
+
+.login-button:disabled {
+  background-color: #a0aec0;
+  cursor: not-allowed;
+}
+
+.button-loader {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .login-card {
+    padding: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: 24px;
+    width: 100%;
+  }
+  
+  .login-title {
+    font-size: 20px;
+  }
+  
+  .login-input, .login-button {
+    padding: 12px;
+  }
 }

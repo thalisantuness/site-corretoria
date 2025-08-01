@@ -6,7 +6,6 @@ import ImovelListAdmin from "../../components/ImovelListAdmin";
 import { Link } from "react-router-dom";
 import ReactWhatsappButton from "react-whatsapp-button";
 import { FaPlus, FaDoorOpen } from "react-icons/fa";
-
 import "./style.css";
 
 function ImovelListAdminPage() {
@@ -18,27 +17,37 @@ function ImovelListAdminPage() {
   };
 
   return (
-    <div className="imovels-container">
-      <ReactWhatsappButton countryCode="81" phoneNumber="92200646" />
+    <div className="admin-container">
+      <ReactWhatsappButton 
+        countryCode="81" 
+        phoneNumber="92200646"
+        className="whatsapp-button"
+      />
+      
       <NavBar />
 
-      <div className="container-initial-admin">
-        <h1>Painel do Admin</h1>
-
-        <Link to="/cadastro-imovel-admin" className="navigate-register-admin">
-          <button>
-            <FaPlus className="button-register-admin" />
-            Adicionar Imóveis
-          </button>
-        </Link>
-
-        <button className="logout-button" onClick={handleLogout}>
-          <FaDoorOpen className="button-left-door" />
-          Sair
-        </button>
+      <div className="admin-header">
+        <div className="admin-header-content">
+          <h1 className="admin-title">Painel Administrativo</h1>
+          
+          <div className="admin-actions">
+            <Link to="/cadastro-imovel-admin" className="admin-add-button">
+              <FaPlus className="button-icon" />
+              <span>Adicionar Imóvel</span>
+            </Link>
+            
+            <button className="admin-logout-button" onClick={handleLogout}>
+              <FaDoorOpen className="button-icon" />
+              <span>Sair</span>
+            </button>
+          </div>
+        </div>
       </div>
 
-      <ImovelListAdmin />
+      <main className="admin-main-content">
+        <ImovelListAdmin />
+      </main>
+
       <Footer />
     </div>
   );

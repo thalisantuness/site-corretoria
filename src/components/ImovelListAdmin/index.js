@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { FaCar, FaBath, FaBed, FaTrash } from "react-icons/fa";
+import { FaCar, FaBath, FaBed, FaTrash, FaEdit } from "react-icons/fa";
 import axios from "axios";
 import { useImovel } from "../../context/ImovelContext";
 import "./styles.css";
 import { ToastContainer, toast } from 'react-toastify';
+import { Link } from "react-router-dom";
 
 function ImovelListAdmin() {
   const [imoveis, setImoveis] = useState([]);
@@ -57,32 +58,70 @@ function ImovelListAdmin() {
   };
 
   return (
-    <div className="list-container-admin">
-           <ToastContainer />
+    <div className="admin-list-container">
+      <ToastContainer />
       {notFound ? (
-        <h3>Pesquisa não encontrada</h3>
+        <div className="not-found-message">
+          <h3>Nenhum imóvel encontrado</h3>
+          <p>Por favor, ajuste seus filtros de busca</p>
+        </div>
       ) : (
-        <ul className="custom-list">
+        <div className="admin-property-grid">
           {imoveis.map((imovel) => (
-            <li key={imovel.imovel_id} className="list-item">
-              <img src={imovel.imageData} alt={imovel.nome} />
-              <div className="container-details-list">
-                <h2>{imovel.nome}</h2>
-                <p>{imovel.description}</p>
-                <p>{imovel.tipo.nome}</p>
-                <p>{imovel.estado.nome}</p>
-                <div className="item-info-line">
-                  <div className="item-info-container"><FaCar /> {imovel.n_vagas} vaga</div>
-                  <div className="item-info-container"><FaBath /> {imovel.n_banheiros} banheiro</div>
-                  <div className="item-info-container"><FaBed /> {imovel.n_quartos} quartos</div>
-                </div>
-                <button onClick={() => handleDelete(imovel.imovel_id)} className="details-button">
-                  <FaTrash /> Excluir
-                </button>
+            <div key={imovel.imovel_id} className="admin-property-card">
+              <div className="property-image-container">
+                <img 
+                  src={imovel.imageData} 
+                  alt={imovel.nome} 
+                  className="property-image"
+                  onError={(e) => {
+                    e.target.src = 'https://via.placeholder.com/300x200?text=Imagem+Indisponível';
+                  }}
+                />
               </div>
-            </li>
+              
+              <div className="property-details">
+                <h3 className="property-title">{imovel.nome}</h3>
+                <p className="property-description">{imovel.description}</p>
+                
+                <div className="property-meta">
+                  <span className="property-type">{imovel.tipo.nome}</span>
+                  <span className="property-location">{imovel.estado.nome}</span>
+                </div>
+                
+                <div className="property-features">
+                  <div className="feature">
+                    <FaCar className="feature-icon" />
+                    <span>{imovel.n_vagas} {imovel.n_vagas === 1 ? 'vaga' : 'vagas'}</span>
+                  </div>
+                  <div className="feature">
+                    <FaBath className="feature-icon" />
+                    <span>{imovel.n_banheiros} {imovel.n_banheiros === 1 ? 'banheiro' : 'banheiros'}</span>
+                  </div>
+                  <div className="feature">
+                    <FaBed className="feature-icon" />
+                    <span>{imovel.n_quartos} {imovel.n_quartos === 1 ? 'quarto' : 'quartos'}</span>
+                  </div>
+                </div>
+                
+                <div className="property-actions">
+                  <Link 
+                    to={`/editar-imovel/${imovel.imovel_id}`} 
+                    className="edit-button"
+                  >
+                    <FaEdit /> Editar
+                  </Link>
+                  <button 
+                    onClick={() => handleDelete(imovel.imovel_id)} 
+                    className="delete-button"
+                  >
+                    <FaTrash /> Excluir
+                  </button>
+                </div>
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );

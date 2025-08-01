@@ -61,34 +61,52 @@ export default function FormLogin() {
   };
 
   return (
-    <div>
-         <ToastContainer />
-      <h2 className="subtitle-login">Olá, faça seu login</h2>
-      <form className="form-login" onSubmit={handleSubmit}>
-        <input
-          className="input-login"
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-          disabled={loading}
-        />
-        <input
-          className="input-login"
-          type="password"
-          name="senha"
-          placeholder="Senha"
-          value={formData.senha}
-          onChange={handleChange}
-          required
-          disabled={loading}
-        />
-        <button className="button-login" type="submit" disabled={loading}>
-          {loading ? "Logando..." : "Login"}
-        </button>
-      </form>
+    <div className="login-container">
+      <ToastContainer />
+      <div className="login-card">
+        <h2 className="login-title">Acesso Administrativo</h2>
+        <p className="login-subtitle">Insira suas credenciais para acessar o painel</p>
+        
+        <form className="login-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="email" className="input-label">Email</label>
+            <input
+              id="email"
+              className="login-input"
+              type="email"
+              name="email"
+              placeholder="seu@email.com"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              disabled={loading}
+            />
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="senha" className="input-label">Senha</label>
+            <input
+              id="senha"
+              className="login-input"
+              type="password"
+              name="senha"
+              placeholder="••••••••"
+              value={formData.senha}
+              onChange={handleChange}
+              required
+              disabled={loading}
+            />
+          </div>
+          
+          <button className="login-button" type="submit" disabled={loading}>
+            {loading ? (
+              <span className="button-loader"></span>
+            ) : (
+              "Entrar"
+            )}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

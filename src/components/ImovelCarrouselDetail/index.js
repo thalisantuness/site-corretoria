@@ -1,56 +1,68 @@
-import React, { useState, useEffect } from "react";
-import { useImovel } from "../../context/ImovelContext";
-import axios from "axios";
-import "./style.css";
+import React, { useState } from "react";
+import "../../pages/imovel-details/style.css";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-function ImovelCarrouselDetail() {
-  const { imovelId } = useImovel();
-  const [imovel, setImovel] = useState(null);
-  const [index, setIndex] = useState(0);
+function ImovelCarrouselDetail({ imovel }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  useEffect(() => {
-    const fetchImovel = async () => {
-      try {
-        const response = await axios.get(`https://api-corretora-production.up.railway.app/imovel/${imovelId}`);
-        setImovel(response.data);
-      } catch (error) {
-        console.error("Erro ao buscar detalhes do imóvel:", error);
-      }
-    };
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex === imovel.photos.length - 1 ? 0 : prevIndex + 1
+    );
+  };
 
-    if (imovelId) fetchImovel();
-  }, [imovelId]);
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex === 0 ? imovel.photos.length - 1 : prevIndex - 1
+    );
+  };
 
-  if (!imovel) {
-    return <p>Carregando detalhes do imóvel...</p>;
+  const goToSlide = (index) => {
+    setCurrentIndex(index);
+  };
+
+  if (!imovel?.photos?.length) {
+    return (
+      <div className="no-photos">
+        <p>Nenhuma foto disponível para este imóvel</p>
+      </div>
+    );
   }
 
   return (
-    <div className="carrousel">
-    <button
-  className="prev"
-  onClick={() => setIndex((prev) => (prev - 1 + imovel.photos.length) % imovel.photos.length)}
->
-  {"<"}
-</button>
-
-<div className="carrousel-images">
-  {imovel.photos?.map((foto, i) => (
-    <img
-      key={foto.photo_id}
-      src={foto.imageData}
-      alt={`Foto ${foto.photo_id}`}
-      className={i === index ? "active" : "hidden"}
-    />
-  ))}
-</div>
-
-<button
-  className="next"
-  onClick={() => setIndex((prev) => (prev + 1) % imovel.photos.length)}
->
-  {">"}
-</button>
+    <div className="carousel-container">
+      <div className="main-carousel">
+        <button onClick={prevSlide} className="carousel-button prev">
+          <FaChevronLeft />
+        </button>
+        
+        <div className="slide-container">
+          <img 
+            src={imovel.photos[currentIndex].imageData} 
+            alt={`Imóvel ${currentIndex + 1}`} 
+            className="active-slide"
+          />
+        </div>
+        
+        <button onClick={nextSlide} className="carousel-button next">
+          <FaChevronRight />
+        </button>
+      </div>
+      
+      <div className="thumbnails-container">
+        {imovel.photos.map((photo, index) => (
+          <div 
+            key={index}
+            className={`thumbnail ${index === currentIndex ? 'active' : ''}`}
+            onClick={() => goToSlide(index)}
+          >
+            <img 
+              src={photo.imageData} 
+              alt={`Thumbnail ${index + 1}`}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

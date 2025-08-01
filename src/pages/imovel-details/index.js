@@ -6,7 +6,7 @@ import ImovelCarrouselDetail from "../../components/ImovelCarrouselDetail";
 import ImovelTextDetails from "../../components/ImovelTextDetails";
 import axios from "axios";
 import "./style.css";
-import { IoIosArrowRoundBack } from "react-icons/io";
+import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
 function ImovelListDetails() {
@@ -31,29 +31,48 @@ function ImovelListDetails() {
     fetchImovel();
   }, [imovelId]);
 
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   if (!imovelId) {
-    return <p>Nenhum imóvel selecionado.</p>;
+    return (
+      <div className="loading-container">
+        <p>Nenhum imóvel selecionado.</p>
+      </div>
+    );
   }
 
   if (!imovel) {
-    return <p>Carregando detalhes do imóvel...</p>;
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+        <p>Carregando detalhes do imóvel...</p>
+      </div>
+    );
   }
 
-  const handleBack = () => {
-    navigate("/imovel-list");
-  };
-
   return (
-    <div className="container">
+    <div className="imovel-details-page">
       <NavBar />
-      <div className="imovel-details">
-        <button onClick={() => handleBack()}>
-          <IoIosArrowRoundBack /> Voltar
+      
+      <div className="imovel-details-container">
+        <button onClick={handleBack} className="back-button">
+          <IoIosArrowBack className="back-icon" />
+          Voltar para lista
         </button>
-        <h1>{imovel.nome}</h1>
-        <ImovelCarrouselDetail />
-        <ImovelTextDetails />
+        
+        <div className="imovel-content-wrapper">
+          <div className="imovel-media-section">
+            <ImovelCarrouselDetail imovel={imovel} />
+          </div>
+          
+          <div className="imovel-info-section">
+            <ImovelTextDetails imovel={imovel} />
+          </div>
+        </div>
       </div>
+      
       <Footer />
     </div>
   );

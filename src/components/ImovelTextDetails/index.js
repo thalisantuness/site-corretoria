@@ -1,63 +1,96 @@
-import React, { useState, useEffect } from "react";
-import { useImovel } from "../../context/ImovelContext";
-import { FaCar, FaBath, FaBed } from "react-icons/fa";
-import axios from "axios";
-import "./style.css";
+import React from "react";
+import { FaCar, FaBath, FaBed, FaRulerCombined, FaMoneyBillWave, FaBuilding } from "react-icons/fa";
+import { MdLocationOn } from "react-icons/md";
+import "../../pages/imovel-details/style.css";
 
-function ImovelTextDetails() {
-  const { imovelId } = useImovel();
-  const [imovel, setImovel] = useState(null);
-
-  useEffect(() => {
-    const fetchImovel = async () => {
-      try {
-        const response = await axios.get(
-          `https://api-corretora-production.up.railway.app/imovel/${imovelId}`
-        );
-        setImovel(response.data);
-      } catch (error) {
-        console.error("Erro ao buscar detalhes do imóvel:", error);
-      }
-    };
-
-    if (imovelId) fetchImovel();
-  }, [imovelId]);
-
-  if (!imovel) {
-    return <p>Carregando informações do imóvel...</p>;
-  }
+function ImovelTextDetails({ imovel }) {
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(value);
+  };
 
   return (
-    <>
-      <div className="item-infos">
-        <p className="item-value">Valor: {imovel.valor}</p>
-        <p className="item-condominio">Condomínio: {imovel.valor_condominio}</p>
-        <p>{imovel.description}</p>
-        <p>{imovel.tipo.nome}</p>
-        <p>{imovel.cidade.nome}</p>
-        <p>{imovel.estado.nome}</p>
+    <div className="property-details">
+      <div className="property-header">
+        <h1 className="property-title">{imovel.nome}</h1>
+        <div className="property-location">
+          <MdLocationOn className="location-icon" />
+          <span>{imovel.cidade.nome}, {imovel.estado.nome}</span>
+        </div>
+      </div>
+      
+      <div className="property-price-section">
+        <div className="price-container">
+          <span className="price-value">{formatCurrency(imovel.valor)}</span>
+          {imovel.tipo_transacao === 'Aluguel' && (
+            <span className="price-period">/mês</span>
+          )}
+        </div>
+        
+        {imovel.valor_condominio > 0 && (
+          <div className="condominium-fee">
+            <span>Condomínio: {formatCurrency(imovel.valor_condominio)}/mês</span>
+          </div>
+        )}
+      </div>
+      
+      <div className="property-features">
+        <div className="feature-item">
+          <FaBed className="feature-icon" />
+          <span>{imovel.n_quartos} Quarto{imovel.n_quartos !== 1 ? 's' : ''}</span>
+        </div>
+        <div className="feature-item">
+          <FaBath className="feature-icon" />
+          <span>{imovel.n_banheiros} Banheiro{imovel.n_banheiros !== 1 ? 's' : ''}</span>
+        </div>
+        <div className="feature-item">
+          <FaCar className="feature-icon" />
+          <span>{imovel.n_vagas} Vaga{imovel.n_vagas !== 1 ? 's' : ''}</span>
+        </div>
+        <div className="feature-item">
+          <FaRulerCombined className="feature-icon" />
+          <span>--- m²</span>
+        </div>
+      </div>
+      
+      <div className="property-description">
+        <h2 className="section-title">Descrição</h2>
+        <p>{imovel.description || "Nenhuma descrição disponível."}</p>
+      </div>
+      
+      <div className="property-details-grid">
+        <div className="details-section">
+          <h3 className="section-title"><FaBuilding /> Características</h3>
+          <ul className="details-list">
+            <li><strong>Tipo:</strong> {imovel.tipo.nome}</li>
+            <li><strong>Transação:</strong> {imovel.tipo_transacao}</li>
+          </ul>
+        </div>
+        
+        <div className="details-section">
+          <h3 className="section-title"><FaMoneyBillWave /> Custos</h3>
+          <ul className="details-list">
+            <li><strong>IPTU:</strong> {formatCurrency(imovel.valor_iptu)}/ano</li>
+            {imovel.valor_condominio > 0 && (
+              <li><strong>Condomínio:</strong> {formatCurrency(imovel.valor_condominio)}/mês</li>
+            )}
+          </ul>
+        </div>
+      </div>
+      
+      <div className="contact-section">
         <a
-          className="link-chamada"
           href="https://wa.me/5581992200646?text=Ol%C3%A1%2C%20gostei%20de%20um%20im%C3%B3vel%20que%20vi%20no%20seu%20site!"
+          className="contact-button"
+          target="_blank"
+          rel="noopener noreferrer"
         >
-          Entrar em contato
+          Entrar em contato via WhatsApp
         </a>
       </div>
-
-      <div className="item-info-line">
-        <div className="item-info-container">
-          <FaCar /> <div className="item-detail">{imovel.n_vagas} vaga</div>
-        </div>
-        <div className="item-info-container">
-          <FaBath />{" "}
-          <div className="item-detail">{imovel.n_banheiros} banheiro</div>
-        </div>
-        <div className="item-info-container">
-          <FaBed />{" "}
-          <div className="item-detail">{imovel.n_quartos} quartos</div>
-        </div>
-      </div>
-    </>
+    </div>
   );
 }
 
