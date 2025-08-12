@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { FaCar, FaBath, FaBed } from "react-icons/fa";
+import { FaCar, FaBath, FaBed, FaMoneyBillWave, FaBuilding } from "react-icons/fa";
+import { MdLocationOn } from "react-icons/md";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useImovel } from "../../context/ImovelContext";
@@ -10,6 +11,13 @@ function ImovelList() {
   const [notFound, setNotFound] = useState(false);
   const { filtros, setImovelId } = useImovel();
   const navigate = useNavigate();
+
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(value);
+  };
 
   useEffect(() => {
     const fetchImoveis = async () => {
@@ -53,45 +61,69 @@ function ImovelList() {
   };
 
   return (
-    <div className="list-container">
+    <div className="admin-list-container">
       {notFound ? (
-        <h3>Pesquisa não encontrada</h3>
+        <div className="not-found-message">
+          <h3>Nenhum imóvel encontrado</h3>
+          <p>Tente ajustar os filtros de busca</p>
+        </div>
       ) : (
-        <div className="imoveis-grid">
+        <div className="admin-property-grid">
           {imoveis.map((imovel) => (
             <div
               key={imovel.imovel_id}
-              className="imovel-card"
+              className="admin-property-card"
               onClick={() => handleSelectImovel(imovel.imovel_id)}
             >
-              <img
-                src={imovel.imageData}
-                alt={imovel.nome}
-                className="imovel-image"
-              />
-              <div className="imovel-details">
-                <h2>{imovel.nome}</h2>
-                <p className="imovel-description">{imovel.description}</p>
-                <p className="imovel-type">{imovel.tipo.nome}</p>
+              <div className="property-image-container">
+                <img
+                  src={imovel.imageData}
+                  alt={imovel.nome}
+                  className="property-image"
+                  onError={(e) => {
+                    e.target.src = 'https://via.placeholder.com/400x300?text=Imagem+Indisponível';
+                  }}
+                />
+              </div>
+              
+              <div className="property-details">
+                <h3 className="property-title">{imovel.nome}</h3>
+                <p className="property-description">{imovel.description}</p>
+                
+                <div className="property-meta">
+                  <span className="property-type">
+                    <FaBuilding className="type-icon" /> {imovel.tipo.nome}
+                  </span>
+                  <span className="property-location">
+                    <MdLocationOn className="location-icon" /> {imovel.cidade.nome}, {imovel.estado.nome}
+                  </span>
+                </div>
+                
+                <div className="price-container">
+                  <span className="price-value">{formatCurrency(imovel.valor)}</span>
+                  {imovel.tipo_transacao === 'Aluguel' && (
+                    <span className="price-period">/mês</span>
+                  )}
+                </div>
+                
+                {imovel.valor_condominio > 0 && (
+                  <div className="condominium-fee">
+                    <span>Condomínio: {formatCurrency(imovel.valor_condominio)}/mês</span>
+                  </div>
+                )}
 
-                <p className="imovel-price">Valor: {imovel.valor}</p>
-                <p className="imovel-condominio">
-                  Condomínio: {imovel.valor_condominio}
-                </p>
-
-                <p className="imovel-location">
-                  {imovel.cidade.nome}, {imovel.estado.nome}
-                </p>
-
-                <div className="imovel-features">
+                <div className="property-features">
                   <div className="feature">
-                    <FaCar /> {imovel.n_vagas}
+                    <FaBed className="feature-icon" />
+                    <span>{imovel.n_quartos} {imovel.n_quartos === 1 ? 'quarto' : 'quartos'}</span>
                   </div>
                   <div className="feature">
-                    <FaBath /> {imovel.n_banheiros}
+                    <FaBath className="feature-icon" />
+                    <span>{imovel.n_banheiros} {imovel.n_banheiros === 1 ? 'banheiro' : 'banheiros'}</span>
                   </div>
                   <div className="feature">
-                    <FaBed /> {imovel.n_quartos}
+                    <FaCar className="feature-icon" />
+                    <span>{imovel.n_vagas} {imovel.n_vagas === 1 ? 'vaga' : 'vagas'}</span>
                   </div>
                 </div>
               </div>
