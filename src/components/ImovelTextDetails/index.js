@@ -21,7 +21,7 @@ function ImovelTextDetails({ imovel }) {
         </div>
       </div>
       
-      <div className="property-price-section">
+
         <div className="price-container">
           <span className="price-value">{formatCurrency(imovel.valor)}</span>
           {imovel.tipo_transacao === 'Aluguel' && (
@@ -34,7 +34,7 @@ function ImovelTextDetails({ imovel }) {
             <span>Condomínio: {formatCurrency(imovel.valor_condominio)}/mês</span>
           </div>
         )}
-      </div>
+   
       
       <div className="property-features">
         <div className="feature-item">
@@ -49,15 +49,15 @@ function ImovelTextDetails({ imovel }) {
           <FaCar className="feature-icon" />
           <span>{imovel.n_vagas} Vaga{imovel.n_vagas !== 1 ? 's' : ''}</span>
         </div>
-        <div className="feature-item">
+        {/* <div className="feature-item">
           <FaRulerCombined className="feature-icon" />
           <span>--- m²</span>
-        </div>
+        </div> */}
       </div>
       
       <div className="property-description">
         <h2 className="section-title">Descrição</h2>
-        <p>{imovel.description || "Nenhuma descrição disponível."}</p>
+        <p>{imovel.description?.trim() || "Nenhuma descrição disponível."}</p>
       </div>
       
       <div className="property-details-grid">
