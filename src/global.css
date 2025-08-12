@@ -56,10 +56,6 @@ p {
 
 button {
   border-style: none;
-  background-color: black;
-  color: white;
-  height: 40px;
-  width: 100px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -69,12 +65,9 @@ button {
 }
 
 button:hover {
-  background-color: grey;
-  color: white;
   transition: 1s;
   cursor: pointer;
-  height: 50px;
-  width: 110px;
+
 }
 
 .container {
