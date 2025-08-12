@@ -49,13 +49,10 @@ function ImovelTextDetails({ imovel }) {
           <FaCar className="feature-icon" />
           <span>{imovel.n_vagas} Vaga{imovel.n_vagas !== 1 ? 's' : ''}</span>
         </div>
-        {/* <div className="feature-item">
-          <FaRulerCombined className="feature-icon" />
-          <span>--- m²</span>
-        </div> */}
+      
       </div>
       
-      <div className="property-description">
+      <div className="property-description-details">
         <h2 className="section-title">Descrição</h2>
         <p>{imovel.description?.trim() || "Nenhuma descrição disponível."}</p>
       </div>
