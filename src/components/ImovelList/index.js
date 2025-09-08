@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaCar, FaBath, FaBed, FaMoneyBillWave, FaBuilding } from "react-icons/fa";
+import { FaCar, FaBath, FaBed, FaBuilding } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,8 @@ import "./styles.css";
 function ImovelList() {
   const [imoveis, setImoveis] = useState([]);
   const [notFound, setNotFound] = useState(false);
-  const { filtros, setImovelId } = useImovel();
+  // O 'setImovelId' foi removido pois não será mais necessário no contexto
+  const { filtros } = useImovel();
   const navigate = useNavigate();
 
   const formatCurrency = (value) => {
@@ -56,8 +57,7 @@ function ImovelList() {
   }, [filtros]);
 
   const handleSelectImovel = (id) => {
-    setImovelId(id);
-    navigate("/detalhes-imovel");
+    navigate(`/detalhes-imovel/${id}`);
   };
 
   return (

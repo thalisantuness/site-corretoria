@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useImovel } from "../../context/ImovelContext";
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import ImovelCarrouselDetail from "../../components/ImovelCarrouselDetail";
@@ -7,19 +6,19 @@ import ImovelTextDetails from "../../components/ImovelTextDetails";
 import axios from "axios";
 import "./style.css";
 import { IoIosArrowBack } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function ImovelListDetails() {
-  const { imovelId } = useImovel();
+  const { id } = useParams();
   const [imovel, setImovel] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchImovel = async () => {
       try {
-        if (imovelId) {
+        if (id) {
           const response = await axios.get(
-            `https://api-corretora-production.up.railway.app/imovel/${imovelId}`
+            `https://api-corretora-production.up.railway.app/imovel/${id}`
           );
           setImovel(response.data);
         }
@@ -29,19 +28,11 @@ function ImovelListDetails() {
     };
 
     fetchImovel();
-  }, [imovelId]);
+  }, [id]);
 
   const handleBack = () => {
     navigate(-1);
   };
-
-  if (!imovelId) {
-    return (
-      <div className="loading-container">
-        <p>Nenhum imóvel selecionado.</p>
-      </div>
-    );
-  }
 
   if (!imovel) {
     return (

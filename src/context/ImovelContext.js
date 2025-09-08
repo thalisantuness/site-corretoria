@@ -3,7 +3,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 const ImovelContext = createContext();
 
 export const ImovelProvider = ({ children }) => {
-  const [imovelId, setImovelId] = useState(null);
+  //const [imovelId, setImovelId] = useState(null);
   const [filtros, setFiltros] = useState({});
 
 
